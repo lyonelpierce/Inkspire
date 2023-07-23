@@ -6,13 +6,7 @@ import { Montserrat } from "next/font/google";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  PenTool,
-  ImageIcon,
-  Settings,
-  Star,
-} from "lucide-react";
+import { Search, PenTool, ImageIcon, Settings, Star } from "lucide-react";
 
 import { FreeCounter } from "@/components/FreeCounter";
 
@@ -20,9 +14,9 @@ const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
 const routes = [
   {
-    label: "Dashboard",
-    icon: LayoutDashboard,
-    href: "/dashboard",
+    label: "Explore",
+    icon: Search,
+    href: "/explore",
     color: "text-sky-500",
   },
   {

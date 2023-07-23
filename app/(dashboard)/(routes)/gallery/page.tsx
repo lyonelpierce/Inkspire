@@ -4,8 +4,9 @@ import { Heading } from "@/components/Heading";
 import { ImageIcon } from "lucide-react";
 import { Card, CardFooter } from "@/components/ui/card";
 import { useState, useEffect } from "react";
-import Image from "next/image";
-
+import ImageCard from "@/components/GalleryCard";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 interface ImageData {
   createdAt: string;
   id: string;
@@ -70,58 +71,52 @@ const Gallery = () => {
     <div>
       <Heading
         title="Gallery"
-        description="Your saved creations"
+        description="Your saved generations"
         icon={ImageIcon}
         iconColor="text-pink-700"
         bgColor="bg-pink-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
-          <h2 className="text-lg font-semibold">Public Creations</h2>
-          <Card className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8 p-3 bg-gray-100 border-0">
-            {publicImages.map((imageData) => (
-              <Card key={imageData.id} className="rounded-lg overflow-hidden">
-                <div className="relative aspect-square">
-                  <Image fill alt="Generated" src={imageData.imageUrl} />
-                </div>
-                <CardFooter className="p-2 gap-2 flex flex-col">
-                  <p className="text-sm">
-                    <span className="font-semibold">Prompt: </span>
-                    {imageData.imagePrompt}
-                  </p>
-                  <p className="text-sm">
-                    <span className="font-semibold">Style: </span>
-                    {imageData.imageStyle}
-                  </p>
-                </CardFooter>
-              </Card>
-            ))}
+          <h2 className="text-lg font-semibold">Public Generations</h2>
+          <Card
+            className={
+              images.length === 0
+                ? "bg-gray-100 border-0 mt-8 p-3 flex items-center justify-center"
+                : "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0"
+            }
+          >
+            {publicImages.length === 0 ? (
+              <div className="flex flex-col items-center p-5 gap-3">
+                <p className="font-medium">No public generations found.</p>
+                <Button variant="default" className="w-fit">
+                  Generate
+                </Button>
+              </div>
+            ) : (
+              publicImages.map((imageData) => (
+                <ImageCard key={imageData.id} imageData={imageData} />
+              ))
+            )}
           </Card>
         </div>
-        {isPro && privateImages.length > 0 && (
-          <div>
-            <h2 className="text-lg font-semibold mt-8">Private Creations</h2>
+        <div>
+          {!isPro && (
+            <div className="flex h-10 items-center mt-8 gap-2">
+              <h2 className="text-lg font-semibold">Private Generations</h2>
+              <Badge variant="premium" className="uppercase text-sm py-1">
+                Pro
+              </Badge>
+            </div>
+          )}
+          {isPro && privateImages.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8 p-3 bg-gray-100 border-0">
               {privateImages.map((imageData) => (
-                <Card key={imageData.id} className="rounded-lg overflow-hidden">
-                  <div className="relative aspect-square">
-                    <Image fill alt="Generated" src={imageData.imageUrl} />
-                  </div>
-                  <CardFooter className="p-2 gap-2 flex flex-col">
-                    <p className="text-sm">
-                      <span className="font-semibold">Prompt: </span>
-                      {imageData.imagePrompt}
-                    </p>
-                    <p className="text-sm">
-                      <span className="font-semibold">Style: </span>
-                      {imageData.imageStyle}
-                    </p>
-                  </CardFooter>
-                </Card>
+                <ImageCard key={imageData.id} imageData={imageData} />
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

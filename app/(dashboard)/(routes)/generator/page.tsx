@@ -171,7 +171,7 @@ const Generator = () => {
     <div>
       <Heading
         title="Tattoo Generation"
-        description="Turn yourn prompt into a tattoo"
+        description="Turn your prompt into a tattoo"
         icon={PenTool}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"

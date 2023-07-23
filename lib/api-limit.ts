@@ -7,6 +7,8 @@ import { checkSubscription } from "@/lib/subscription";
 export const increaseApiLimit = async (numTokens: number) => {
   const { userId } = auth();
 
+  console.log("UserId:", userId);
+
   if (!userId) {
     return;
   }

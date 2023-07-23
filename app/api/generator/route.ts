@@ -133,7 +133,7 @@ export async function POST(req: Request) {
         authorization: process.env.LEONARDO_SECRET,
       },
       body: JSON.stringify({
-        prompt: prompt + " " + styleOptions[style].defaultPrompt,
+        prompt: prompt + ", " + styleOptions[style].defaultPrompt,
         modelId: styleOptions[style].modelId,
         sd_version: "v2",
         num_images: parseInt(amount, 10),
