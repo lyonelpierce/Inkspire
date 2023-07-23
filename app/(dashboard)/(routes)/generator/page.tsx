@@ -1,0 +1,456 @@
+"use client";
+
+import * as z from "zod";
+import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Heading } from "@/components/Heading";
+import { PenTool, Save, Share } from "lucide-react";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import toast, { Toaster } from "react-hot-toast";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardFooter } from "@/components/ui/card";
+import { Empty } from "@/components/ui/empty";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { Loader } from "@/components/Loader";
+import {
+  formSchema,
+  amountOptions,
+  styleOptions,
+  resolutionOptions,
+} from "./constants";
+import { useProModal } from "@/hooks/use-pro-modal";
+import { Badge } from "@/components/ui/badge";
+
+const Generator = () => {
+  const [isPro, setIsPro] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const fetchSubscriptionStatus = async () => {
+      try {
+        const response = await fetch("/api/subscription", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setIsPro(data.isPro);
+        } else {
+          setIsPro(false);
+        }
+      } catch (error) {
+        setIsPro(false);
+      }
+    };
+
+    fetchSubscriptionStatus();
+  }, []);
+
+  const proModal = useProModal();
+  const router = useRouter();
+  const [images, setImages] = useState<string[]>([]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      prompt: "",
+      style: "watercolor",
+      amount: "1",
+      resolution: "512",
+    },
+  });
+
+  const isLoading = form.formState.isSubmitting;
+
+  const calculateTokens = (amount: string, resolution: string): number => {
+    const imagesCount = parseInt(amount, 10);
+    const resolutionValue = parseInt(resolution, 10);
+
+    if (resolutionValue === 512) {
+      return imagesCount * 2;
+    } else if (resolutionValue === 768) {
+      return imagesCount * 3;
+    } else if (resolutionValue === 1024) {
+      return imagesCount * 4;
+    } else {
+      return imagesCount * 2;
+    }
+  };
+
+  const isOptionDisabledForNonPro = (value: string) => {
+    if (!isPro) {
+      if (value === "2" || value === "3" || value === "4") {
+        return true;
+      }
+
+      if (value === "768" || value === "1024") {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const response = await fetch("/api/generator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.status === 201) {
+        proModal.onOpen();
+        return;
+      }
+
+      setImages([]);
+
+      const data = await response.json();
+      const urls = data.imageUrl.map((image: { url: string }) => image.url);
+
+      setImages(urls);
+    } catch (error: any) {
+      toast.error("Something went wrong.");
+    } finally {
+      router.refresh();
+    }
+  };
+
+  const handleSave = async (
+    imageUrl: string,
+    imagePrompt: string,
+    imageStyle: string,
+    imageStatus: boolean
+  ) => {
+    const data = {
+      imageUrl,
+      imagePrompt,
+      imageStyle,
+      imageStatus,
+    };
+    try {
+      const response = await fetch("/api/gallery", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 200) {
+        console.log(response);
+        toast.success("Shared & Saved!");
+      } else {
+        toast.error("Image already saved.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong.");
+    }
+  };
+
+  return (
+    <div>
+      <Heading
+        title="Tattoo Generation"
+        description="Turn yourn prompt into a tattoo"
+        icon={PenTool}
+        iconColor="text-violet-500"
+        bgColor="bg-violet-500/10"
+      />
+      <div className="px-4 lg:px-8">
+        <div>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
+            >
+              <FormField
+                name="prompt"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-12">
+                    <FormLabel className="text-xs text-muted-foreground">
+                      Prompt
+                    </FormLabel>
+                    <FormControl className="m-0 p-0">
+                      <Input
+                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent px-2"
+                        disabled={isLoading}
+                        placeholder="Elon Musk eating a banana while riding a unicorn"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="style"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-3">
+                    <FormLabel className="text-xs text-muted-foreground">
+                      Style
+                    </FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {styleOptions.map((option) => (
+                          <SelectItem
+                            key={option.value}
+                            value={option.value}
+                            className="cursor-pointer"
+                          >
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-3">
+                    <FormLabel className="text-xs text-muted-foreground">
+                      Number of Images
+                    </FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={(value) => {
+                        if (isOptionDisabledForNonPro(value)) {
+                          proModal.onOpen();
+                        } else {
+                          field.onChange(value);
+                        }
+                      }}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {amountOptions.map((option) => {
+                          const isDisabled = isOptionDisabledForNonPro(
+                            option.value
+                          );
+
+                          return (
+                            <SelectItem
+                              key={option.value}
+                              value={option.value}
+                              className="cursor-pointer"
+                            >
+                              {isDisabled ? (
+                                <>
+                                  {option.label}
+                                  <Badge
+                                    variant="premium"
+                                    className="uppercase text-xs py-1 ml-1"
+                                  >
+                                    Pro
+                                  </Badge>
+                                </>
+                              ) : (
+                                option.label
+                              )}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="resolution"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-3">
+                    <FormLabel className="text-xs text-muted-foreground">
+                      Resolution
+                    </FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={(value) => {
+                        if (isOptionDisabledForNonPro(value)) {
+                          proModal.onOpen();
+                        } else {
+                          field.onChange(value);
+                        }
+                      }}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {resolutionOptions.map((option) => {
+                          const isDisabled = isOptionDisabledForNonPro(
+                            option.value
+                          );
+
+                          return (
+                            <SelectItem
+                              key={option.value}
+                              value={option.value}
+                              className="cursor-pointer"
+                            >
+                              {isDisabled ? (
+                                <>
+                                  {option.label}
+                                  <Badge
+                                    variant="premium"
+                                    className="uppercase text-xs py-1 ml-1"
+                                  >
+                                    Pro
+                                  </Badge>
+                                </>
+                              ) : (
+                                option.label
+                              )}{" "}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <FormItem className="col-span-12 lg:col-span-3">
+                <FormLabel className="text-xs text-muted-foreground">
+                  This will use{" "}
+                  {calculateTokens(
+                    form.watch("amount"),
+                    form.watch("resolution")
+                  )}{" "}
+                  tokens
+                </FormLabel>
+                <Button
+                  className="col-span-12 lg:col-span-2 w-full"
+                  type="submit"
+                  disabled={isLoading}
+                  size="icon"
+                >
+                  Generate
+                </Button>
+              </FormItem>
+            </form>
+          </Form>
+          {isLoading && (
+            <div className="p-20">
+              <Loader />
+            </div>
+          )}
+          {images.length === 0 && !isLoading && (
+            <Empty label="No images generated." />
+          )}
+          <div
+            className={
+              isLoading
+                ? "hidden"
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8"
+            }
+          >
+            {images.map((src) => (
+              <Card key={src} className="rounded-lg overflow-hidden">
+                <div className="relative aspect-square">
+                  <Image fill alt="Generated" src={src} />
+                </div>
+                <CardFooter className="p-2 gap-2">
+                  <Button
+                    onClick={() =>
+                      handleSave(
+                        src,
+                        form.getValues("prompt"),
+                        form.getValues("style"),
+                        true
+                      )
+                    }
+                    variant="default"
+                    className="w-full"
+                  >
+                    <Share className="h-4 w-4 mr-2" />
+                    Share & Save
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      if (isPro) {
+                        handleSave(
+                          src,
+                          form.getValues("prompt"),
+                          form.getValues("style"),
+                          true
+                        );
+                      } else {
+                        proModal.onOpen();
+                      }
+                    }}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Save className="h-4 w-4 mr-2" />
+                    Save
+                    {isPro ? null : (
+                      <Badge
+                        variant="premium"
+                        className="uppercase text-xs py-1 ml-1"
+                      >
+                        Pro
+                      </Badge>
+                    )}
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "#333",
+                color: "#fff",
+              },
+            }}
+          />{" "}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Generator;
