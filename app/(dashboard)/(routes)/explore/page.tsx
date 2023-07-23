@@ -29,14 +29,19 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStyle, setSelectedStyle] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState("");
+  const [showImages, setShowImages] = useState(false);
 
   const getImages = async () => {
     try {
+      console.log("Fetching images...");
       const res = await fetch("/api/gallery");
       const data: ImageData[] = await res.json();
 
       setImages(data);
       setLoading(false);
+      setTimeout(() => {
+        setShowImages(true);
+      }, 1000);
     } catch (error) {
       console.error("Error fetching images:", error);
       setLoading(false);
@@ -111,7 +116,11 @@ const Dashboard = () => {
         <div>
           <Card className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0">
             {loading ? (
-              Array.from({ length: 5 }).map((_, index) => (
+              Array.from({ length: images.length }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))
+            ) : !showImages ? (
+              Array.from({ length: images.length }).map((_, index) => (
                 <SkeletonCard key={index} />
               ))
             ) : filteredImages.length === 0 ? (
