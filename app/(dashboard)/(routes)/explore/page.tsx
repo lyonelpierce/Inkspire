@@ -34,7 +34,7 @@ const Dashboard = () => {
   const getImages = async () => {
     try {
       console.log("Fetching images...");
-      const res = await fetch("/api/gallery");
+      const res = await fetch("/api/feed");
       const data: ImageData[] = await res.json();
 
       setImages(data);
