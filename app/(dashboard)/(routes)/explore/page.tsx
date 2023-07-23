@@ -21,6 +21,7 @@ interface ImageData {
   imageStyle: string;
   imageUrl: string;
   userId: string;
+  userName: string;
 }
 
 const Dashboard = () => {
@@ -33,8 +34,7 @@ const Dashboard = () => {
 
   const getImages = async () => {
     try {
-      console.log("Fetching images...");
-      const res = await fetch("/api/feed");
+      const res = await fetch("/api/explore");
       const data: ImageData[] = await res.json();
 
       setImages(data);

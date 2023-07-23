@@ -8,9 +8,11 @@ interface ImageData {
   imageStyle: string;
   imageUrl: string;
   userId: string;
+  username: string;
 }
 
 const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
+  console.log(imageData);
   return (
     <Card
       key={imageData.id}
@@ -27,8 +29,12 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
         <div className="absolute bottom-0 left-0 w-full text-white text-sm p-4 group-hover:opacity-100">
           <p className="font-semibold">{imageData.imagePrompt}</p>
           <p>{imageData.imageStyle}</p>
-          {/* Display the userId */}
         </div>
+
+        {/* Button in the top-left corner */}
+        <p className="absolute top-2 left-2 px-2 py-3 text-white text-sm hover:text-yellow-500">
+          @{imageData.username}
+        </p>
 
         {/* Heart Icon */}
         <Heart className="absolute top-4 right-4 text-white hover:text-red-500 w-8 h-8 opacity-0 group-hover:opacity-100" />
