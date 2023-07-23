@@ -1,13 +1,7 @@
 import { NextResponse } from "next/server";
+import { clerkClient } from "@clerk/nextjs/server";
 
 import prismadb from "./prismadb";
-
-interface GalleryValues {
-  imageUrl: string;
-  imagePrompt: string;
-  imageStyle: string;
-  imageStatus: boolean;
-}
 
 export const getFeed = async () => {
   try {
