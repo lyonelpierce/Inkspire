@@ -60,6 +60,11 @@ const Dashboard = () => {
     return matchPrompt && matchStyle && matchSearch;
   });
 
+  function getLabelByValue(value: string) {
+    const selectedOption = styleOptions.find((style) => style.value === value);
+    return selectedOption ? selectedOption.label : "";
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between px-4 lg:px-8">
@@ -79,10 +84,12 @@ const Dashboard = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-gray-100 px-3 py-2 rounded-md border-gray-300 focus:ring-sky-500 focus:border-sky-500 flex-1 text-sm border"
             />
-            <Select onValueChange={(value) => setSelectedStyle(value)}>
+            <Select onValueChange={(value: string) => setSelectedStyle(value)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue>
-                  {selectedStyle === "" ? "All Styles" : selectedStyle}
+                  {selectedStyle === ""
+                    ? "All Styles"
+                    : getLabelByValue(selectedStyle)}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
@@ -102,19 +109,13 @@ const Dashboard = () => {
       </div>
       <div className="px-4 lg:px-8">
         <div>
-          <Card
-            className={
-              filteredImages.length === 0
-                ? "bg-gray-100 border-0 mt-8 p-3 flex items-center justify-center"
-                : "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0"
-            }
-          >
+          <Card className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0">
             {loading ? (
               Array.from({ length: 5 }).map((_, index) => (
                 <SkeletonCard key={index} />
               ))
             ) : filteredImages.length === 0 ? (
-              <p>No images found for the selected criteria.</p>
+              <p>No images found</p>
             ) : (
               filteredImages.map((imageData) => (
                 <ImageCard key={imageData.id} imageData={imageData} />

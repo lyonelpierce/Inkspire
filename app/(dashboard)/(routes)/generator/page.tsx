@@ -36,6 +36,7 @@ import {
 } from "./constants";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { Badge } from "@/components/ui/badge";
+import SkeletonCard from "@/components/SkeletonCard";
 
 const Generator = () => {
   const [isPro, setIsPro] = useState<boolean | null>(null);
@@ -166,6 +167,8 @@ const Generator = () => {
       toast.error("Something went wrong.");
     }
   };
+
+  const selectedAmount = form.watch("amount");
 
   return (
     <div>
@@ -342,7 +345,7 @@ const Generator = () => {
                                 </>
                               ) : (
                                 option.label
-                              )}{" "}
+                              )}
                             </SelectItem>
                           );
                         })}
@@ -372,8 +375,10 @@ const Generator = () => {
             </form>
           </Form>
           {isLoading && (
-            <div className="p-20">
-              <Loader />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+              {[...Array(parseInt(selectedAmount, 10))].map((_, index) => (
+                <SkeletonCard key={index} />
+              ))}
             </div>
           )}
           {images.length === 0 && !isLoading && (
