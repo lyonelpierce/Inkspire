@@ -21,7 +21,7 @@ interface ImageData {
   imageStyle: string;
   imageUrl: string;
   userId: string;
-  userName: string;
+  username: string;
 }
 
 const Dashboard = () => {

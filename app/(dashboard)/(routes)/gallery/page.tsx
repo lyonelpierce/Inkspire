@@ -18,6 +18,7 @@ interface ImageData {
   imageUrl: string;
   updatedAt: string;
   userId: string;
+  username: string;
 }
 
 const Gallery = () => {

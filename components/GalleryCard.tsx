@@ -33,7 +33,7 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
 
         {/* Button in the top-left corner */}
         <p className="absolute top-2 left-2 px-2 py-3 text-white text-sm hover:text-yellow-500">
-          @{imageData.username}
+          {imageData.username}
         </p>
 
         {/* Heart Icon */}
