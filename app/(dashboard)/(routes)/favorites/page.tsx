@@ -34,7 +34,7 @@ const Dashboard = () => {
 
   const getImages = async () => {
     try {
-      const res = await fetch("/api/explore");
+      const res = await fetch("/api/favorites");
       const data: ImageData[] = await res.json();
 
       setImages(data);

@@ -19,7 +19,9 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+
   try {
     const favorites = await checkFavorite();
     return NextResponse.json(favorites);

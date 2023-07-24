@@ -24,7 +24,7 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
         let isLiked = false;
 
         for (const favorite of data) {
-          if (favorite.imageId === imageData.id) {
+          if (favorite.id === imageData.id) {
             isLiked = true;
             break;
           }
@@ -55,12 +55,9 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         setIsLiked(false);
       });
   };
-
-  console.log(isLiked);
 
   return (
     <Card

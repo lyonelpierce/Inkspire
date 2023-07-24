@@ -64,6 +64,7 @@ const checkFavorite = async (imageId?: any) => {
         imageId: imageId,
       },
     });
+
     return favorites.length > 0;
   } else {
     const favorites = await prismadb.userFavorite.findMany({
@@ -71,7 +72,20 @@ const checkFavorite = async (imageId?: any) => {
         userId: userId,
       },
     });
-    return favorites;
+
+    const favoriteImages = await Promise.all(
+      favorites.map(async (favorite) => {
+        const { imageId } = favorite;
+        const image = await prismadb.userGallery.findUnique({
+          where: {
+            id: imageId,
+          },
+        });
+        return image;
+      })
+    );
+
+    return favoriteImages;
   }
 };
 

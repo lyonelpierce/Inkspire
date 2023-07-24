@@ -96,7 +96,6 @@ const Gallery = () => {
                 : "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0"
             }
           >
-            {/* Conditional rendering for publicImages */}
             {images.length === 0 ? (
               <div className="flex flex-col items-center p-5 gap-3">
                 <p className="font-medium">No public generations found.</p>
@@ -108,7 +107,7 @@ const Gallery = () => {
                   Generate
                 </Button>
               </div>
-            ) : !showImages ? ( // Show skeleton cards if showImages is false
+            ) : !showImages ? (
               Array.from({ length: publicImages.length }).map((_, index) => (
                 <SkeletonCard key={index} />
               ))
