@@ -8,7 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-
 model UserApiLimit {
   id String @id @default(cuid())
   userId String @unique
@@ -35,6 +34,14 @@ model UserGallery {
   imagePrompt String
   imageStyle String
   imageStatus Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserFavorite {
+  id String @id @default(cuid())
+  userId String
+  imageId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

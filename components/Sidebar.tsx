@@ -6,7 +6,7 @@ import { Montserrat } from "next/font/google";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { Search, PenTool, ImageIcon, Settings, Star } from "lucide-react";
+import { Search, PenTool, ImageIcon, Settings, Heart } from "lucide-react";
 
 import { FreeCounter } from "@/components/FreeCounter";
 
@@ -29,13 +29,13 @@ const routes = [
     label: "Gallery",
     icon: ImageIcon,
     href: "/gallery",
-    color: "text-pink-700",
+    color: "text-yellow-500",
   },
   {
     label: "Favorites",
-    icon: Star,
+    icon: Heart,
     href: "/favorites",
-    color: "text-yellow-500",
+    color: "text-pink-700",
   },
   {
     label: "Settings",

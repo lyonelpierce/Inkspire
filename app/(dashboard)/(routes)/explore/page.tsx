@@ -75,7 +75,7 @@ const Dashboard = () => {
       <div className="flex sm:flex-row flex-col w-full justify-between sm:items-center">
         <Heading
           title="Explore"
-          description="Recent Users Generations"
+          description="Recent users generations"
           icon={Search}
           iconColor="text-sky-500"
           bgColor="bg-sky-500/10"

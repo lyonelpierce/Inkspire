@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { Heart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface ImageData {
   id: string;
@@ -12,7 +14,54 @@ interface ImageData {
 }
 
 const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
-  console.log(imageData);
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    const fetchLikedStatus = async () => {
+      try {
+        const response = await fetch(`/api/favorites/`);
+        const data = await response.json();
+        let isLiked = false;
+
+        for (const favorite of data) {
+          if (favorite.imageId === imageData.id) {
+            isLiked = true;
+            break;
+          }
+        }
+
+        setIsLiked(isLiked);
+      } catch (error) {
+        console.error("Error checking like status:", error);
+      }
+    };
+
+    fetchLikedStatus();
+  }, [imageData.id]);
+
+  const handleLikeClick = () => {
+    fetch("/api/favorites", {
+      method: "POST",
+      body: JSON.stringify({ imageId: imageData.id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          setIsLiked((prev) => !prev);
+        } else {
+          setIsLiked(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLiked(false);
+      });
+  };
+
+  console.log(isLiked);
+
   return (
     <Card
       key={imageData.id}
@@ -32,12 +81,18 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
         </div>
 
         {/* Button in the top-left corner */}
-        <p className="absolute top-2 left-2 px-2 py-3 text-white text-sm hover:text-yellow-500">
+        <p className="absolute top-2 left-2 px-2 py-3 text-white text-sm font-medium">
           {imageData.username}
         </p>
 
         {/* Heart Icon */}
-        <Heart className="absolute top-4 right-4 text-white hover:text-red-500 w-8 h-8 opacity-0 group-hover:opacity-100" />
+        <Heart
+          className={cn(
+            "absolute top-4 right-4 text-white hover:text-red-500 w-8 h-8 opacity-0 group-hover:opacity-100",
+            isLiked && "text-red-500"
+          )}
+          onClick={handleLikeClick}
+        />
       </div>
     </Card>
   );

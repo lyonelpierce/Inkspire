@@ -8,6 +8,7 @@ import ImageCard from "@/components/GalleryCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import SkeletonCard from "@/components/SkeletonCard";
+import { useRouter } from "next/navigation";
 
 interface ImageData {
   createdAt: string;
@@ -22,6 +23,7 @@ interface ImageData {
 }
 
 const Gallery = () => {
+  const router = useRouter();
   const [isPro, setIsPro] = useState<boolean | null>(null);
   const [images, setImages] = useState<ImageData[]>([]);
   const [showImages, setShowImages] = useState(false);
@@ -81,8 +83,8 @@ const Gallery = () => {
         title="Gallery"
         description="Your saved generations"
         icon={ImageIcon}
-        iconColor="text-pink-700"
-        bgColor="bg-pink-700/10"
+        iconColor="text-yellow-500"
+        bgColor="bg-yellow-500/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -98,7 +100,11 @@ const Gallery = () => {
             {images.length === 0 ? (
               <div className="flex flex-col items-center p-5 gap-3">
                 <p className="font-medium">No public generations found.</p>
-                <Button variant="default" className="w-fit">
+                <Button
+                  variant="default"
+                  className="w-fit"
+                  onClick={() => router.push("/generator")}
+                >
                   Generate
                 </Button>
               </div>
