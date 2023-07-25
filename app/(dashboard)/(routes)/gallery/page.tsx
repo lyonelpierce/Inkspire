@@ -99,6 +99,7 @@ const Gallery = () => {
             {images.length === 0 ? (
               <div className="flex flex-col items-center p-5 gap-3">
                 <p className="font-medium">No public generations found.</p>
+
                 <Button
                   variant="default"
                   className="w-fit"

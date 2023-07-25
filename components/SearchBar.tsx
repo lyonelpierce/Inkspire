@@ -10,8 +10,7 @@ import { styleOptions } from "../constants";
 import { X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
-
-interface ImageData {
+interface SearchBarImageData {
   id: string;
   imagePrompt: string;
   imageStyle: string;
@@ -21,8 +20,8 @@ interface ImageData {
 }
 
 interface SearchBarProps {
-  images: ImageData[];
-  setFilteredImages: React.Dispatch<React.SetStateAction<ImageData[]>>;
+  images: SearchBarImageData[];
+  setFilteredImages: React.Dispatch<React.SetStateAction<SearchBarImageData[]>>;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ images, setFilteredImages }) => {
@@ -35,26 +34,26 @@ const SearchBar: React.FC<SearchBarProps> = ({ images, setFilteredImages }) => {
     return selectedOption ? selectedOption.label : "";
   }
 
-  const filteredImages = images.filter((imageData) => {
-    const matchPrompt =
-      selectedPrompt === "" || imageData.imagePrompt.includes(selectedPrompt);
-    const matchStyle =
-      selectedStyle === "" || imageData.imageStyle.includes(selectedStyle);
-    const matchSearch =
-      searchQuery === "" ||
-      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase());
+  useEffect(() => {
+    const filteredImages = images.filter((imageData) => {
+      const matchPrompt =
+        selectedPrompt === "" || imageData.imagePrompt.includes(selectedPrompt);
+      const matchStyle =
+        selectedStyle === "" || imageData.imageStyle.includes(selectedStyle);
+      const matchSearch =
+        searchQuery === "" ||
+        imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchPrompt && matchStyle && matchSearch;
-  });
+      return matchPrompt && matchStyle && matchSearch;
+    });
+
+    setFilteredImages(filteredImages);
+  }, [selectedPrompt, selectedStyle, searchQuery, images, setFilteredImages]);
 
   const clearSelections = () => {
-    setSelectedStyle(""); // Clear selectedStyle
-    setSearchQuery(""); // Clear searchQuery
+    setSelectedStyle("");
+    setSearchQuery("");
   };
-
-  useEffect(() => {
-    setFilteredImages(filteredImages);
-  }, [selectedPrompt, selectedStyle, searchQuery, images]);
 
   return (
     <div className="flex space-x-4 px-7">
