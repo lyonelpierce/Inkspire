@@ -14,10 +14,14 @@ interface ImageData {
   username: string;
 }
 
-const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
+interface ImageCardProps {
+  imageData: ImageData;
+  onRemove: (imageId: string) => void;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
   const [isLiked, setIsLiked] = useState(false);
   const imageModal = useImageModal();
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
@@ -43,6 +47,14 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
   }, [imageData.id]);
 
   const handleLikeClick = () => {
+    if (isLiked) {
+      setIsLiked(false);
+      console.log(false);
+    } else {
+      setIsLiked(true);
+      console.log(true);
+    }
+
     fetch("/api/favorites", {
       method: "POST",
       body: JSON.stringify({ imageId: imageData.id }),
@@ -51,14 +63,13 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
       },
     })
       .then((response) => {
-        if (response.ok) {
-          setIsLiked((prev) => !prev);
-        } else {
-          setIsLiked(false);
+        if (!response.ok) {
+          setIsLiked(!isLiked);
         }
+        onRemove(imageData.id);
       })
       .catch((error) => {
-        setIsLiked(false);
+        setIsLiked(!isLiked);
       });
   };
 

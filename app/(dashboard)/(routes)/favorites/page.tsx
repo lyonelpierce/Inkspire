@@ -70,6 +70,12 @@ const Dashboard = () => {
     return selectedOption ? selectedOption.label : "";
   }
 
+  const handleRemoveCard = (imageId: string) => {
+    setImages((prevImages) =>
+      prevImages.filter((image) => image.id !== imageId)
+    );
+  };
+
   return (
     <div>
       <div className="flex sm:flex-row flex-col w-full justify-between sm:items-center">
@@ -125,7 +131,11 @@ const Dashboard = () => {
               <p>No images found</p>
             ) : (
               filteredImages.map((imageData) => (
-                <ImageCard key={imageData.id} imageData={imageData} />
+                <ImageCard
+                  key={imageData.id}
+                  imageData={imageData}
+                  onRemove={handleRemoveCard}
+                />
               ))
             )}
           </Card>
