@@ -52,7 +52,7 @@ export const LandingContent = () => {
           : images.map((image) => (
               <Card
                 key={image.id}
-                className="bg-neutral-950 border-none relative rounded-lg overflow-hidden group hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
+                className="bg-black/0 border-none relative rounded-lg overflow-hidden group hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
               >
                 <Image
                   width={512}
@@ -65,6 +65,7 @@ export const LandingContent = () => {
                   <div className="w-full h-full bg-gradient-to-br from-transparent via-black to-black opacity-60">
                     <div className="absolute bottom-0 left-0 w-full text-white text-sm p-4 group-hover:opacity-100">
                       <p className="font-semibold">{image.imagePrompt}</p>
+                      <p className="font-semibold">{image.imageStyle}</p>
                     </div>
                     <p className="absolute top-2 left-2 px-2 py-4 text-white text-sm font-medium">
                       {image.username}

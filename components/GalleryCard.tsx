@@ -86,7 +86,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
   return (
     <Card
       key={imageData.id}
-      className="relative rounded-lg overflow-hidden group hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
+      className="relative rounded-xl bg-black/0 overflow-hidden group hover:shadow-lg transition duration-300 ease-in-out cursor-pointer border-0"
     >
       <div className="aspect-square">
         <Image
@@ -119,7 +119,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
           className={cn(
             "absolute top-4 right-4 text-white hover:text-red-500 w-10 h-10 p-2 opacity-0 group-hover:opacity-100 ",
             isLiked &&
-              "text-opacity-100 bg-red-500 rounded-full w-10 h-10 p-2 flex items-center justify-center hover:text-white/50"
+              "text-opacity-100 bg-red-500 rounded-full w-10 h-10 p-2 flex items-center justify-center hover:text-white"
           )}
           onClick={handleLikeClick}
         />

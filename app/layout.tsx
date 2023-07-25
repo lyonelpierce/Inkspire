@@ -22,7 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <CrispProvider />
-        <body className={inter.className}>
+        <body className={`bg-black ${inter.className}`}>
           <ModalProvider />
           <ImageModalProvider />
           {children}

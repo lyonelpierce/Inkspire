@@ -43,7 +43,7 @@ export const ImageModal = () => {
 
   return (
     <Dialog open={imageModal.isOpen} onOpenChange={imageModal.onClose}>
-      <DialogContent className="p-5 flex">
+      <DialogContent className="p-5 flex bg-[#171717] border-0">
         <Image
           width={512}
           height={512}
@@ -53,30 +53,34 @@ export const ImageModal = () => {
         />
         <div className="w-lg p-3 flex flex-col gap-5 w-3/5">
           {username && (
-            <div className="font-semibold text-violet-500 flex items-center gap-2">
-              <div className="bg-violet-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
+            <div className="font-semibold text-gray-300 flex items-center gap-2">
+              <div className="bg-[#6653e0] rounded-full w-8 h-8 flex items-center justify-center text-white">
                 {firstLetter}
               </div>
               {username}
             </div>
           )}
-          <div className="bg-gray-100 rounded-lg p-3">
+          <div className="bg-[#202020] rounded-lg p-3">
             <div className="flex justify-between items-center mb-2">
-              <p className="font-semibold text-sm">Prompt:</p>
+              <p className="font-semibold text-sm text-white">Prompt:</p>
               <Button
                 onClick={handleCopyPrompt}
-                className="rounded-full h-15 flex gap-2"
+                className="rounded-lg h-15 flex gap-2 bg-[#171717] border-0 text-white hover:bg-white hover:text-black"
                 variant="outline"
               >
                 <Copy size={10} />
                 <span className="text-xs font-medium">Copy prompt</span>
               </Button>
             </div>
-            <p className="bg-white rounded-lg p-2 text-sm">{imagePrompt}</p>
+            <p className="bg-[#171717] rounded-lg p-3 text-sm text-white">
+              {imagePrompt}
+            </p>
           </div>
-          <div className="bg-gray-100 rounded-lg p-3">
-            <p className="font-semibold text-sm mb-2">Style:</p>
-            <p className="bg-white rounded-lg p-2 text-sm">{imageStyle}</p>
+          <div className="bg-[#202020] rounded-lg p-3">
+            <p className="font-semibold text-white text-sm mb-2">Style:</p>
+            <p className="bg-[#171717] rounded-lg p-3 text-sm text-white">
+              {imageStyle}
+            </p>
           </div>
           <Button className="gap-2 font-semibold" onClick={handleDownload}>
             <Download />

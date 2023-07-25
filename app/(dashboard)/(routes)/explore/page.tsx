@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Search } from "lucide-react";
 import { Heading } from "@/components/Heading";
 import ImageCard from "@/components/GalleryCard";
-import SkeletonCard from "@/components/SkeletonCard";
+import SkeletonDark from "@/components/SkeletonDark";
 import SearchBar from "@/components/SearchBar";
 
 interface ImageData {
@@ -51,24 +51,24 @@ const Dashboard = () => {
           description="Recent users generations"
           icon={Search}
           iconColor="text-sky-500"
-          bgColor="bg-sky-500/10"
+          bgColor="bg-sky-500/30"
         />
         <SearchBar images={images} setFilteredImages={setFilteredImages} />
       </div>
       <div className="px-4 lg:px-8">
         <div>
-          <Card className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0">
+          <Card className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8 p-5 bg-[#171717] border-0">
             {loading ? (
               Array.from({ length: images.length }).map((_, index) => (
-                <SkeletonCard key={index} />
+                <SkeletonDark key={index} />
               ))
             ) : !showImages ? (
               Array.from({ length: images.length }).map((_, index) => (
-                <SkeletonCard key={index} />
+                <SkeletonDark key={index} />
               ))
             ) : filteredImages.length === 0 ? (
               <div className="col-span-full flex flex-col items-center justify-center p-5 gap-3">
-                <p className="font-medium">No generations found</p>
+                <p className="font-medium text-white">No generations found.</p>
               </div>
             ) : (
               filteredImages.map((imageData) => (

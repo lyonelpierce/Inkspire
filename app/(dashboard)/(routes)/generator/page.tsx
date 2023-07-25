@@ -35,7 +35,7 @@ import {
 } from "./constants";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { Badge } from "@/components/ui/badge";
-import SkeletonCard from "@/components/SkeletonCard";
+import SkeletonDark from "@/components/SkeletonDark";
 
 const Generator = () => {
   const [isPro, setIsPro] = useState<boolean | null>(null);
@@ -175,7 +175,7 @@ const Generator = () => {
         description="Turn your prompt into a tattoo design"
         icon={PenTool}
         iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        bgColor="bg-violet-500/30"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -183,14 +183,14 @@ const Generator = () => {
             <form
               id="generatorForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
+              className="rounded-lg border w-full p-6 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2 border-0 bg-[#171717] space-y-2"
             >
               <FormField
                 name="prompt"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-12">
                     <FormLabel
-                      className="text-xs text-muted-foreground"
+                      className="text-xs text-white"
                       id="promptLabel"
                       htmlFor="promptInput"
                     >
@@ -198,7 +198,7 @@ const Generator = () => {
                     </FormLabel>
                     <FormControl className="m-0 p-0">
                       <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent px-2"
+                        className="border-0 bg-[#202020] outline-none focus-visible:ring-0 focus-visible:ring-transparent px-2 text-white"
                         disabled={isLoading}
                         placeholder="Elon Musk eating a banana while riding a unicorn"
                         {...field}
@@ -215,7 +215,7 @@ const Generator = () => {
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-3">
                     <FormLabel
-                      className="text-xs text-muted-foreground"
+                      className="text-xs text-white"
                       htmlFor="styleInput"
                     >
                       Style
@@ -250,7 +250,7 @@ const Generator = () => {
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-3">
                     <FormLabel
-                      className="text-xs text-muted-foreground"
+                      className="text-xs text-white"
                       htmlFor="amountInput"
                     >
                       Number of Images
@@ -309,7 +309,7 @@ const Generator = () => {
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-3">
                     <FormLabel
-                      className="text-xs text-muted-foreground"
+                      className="text-xs text-white"
                       htmlFor="resolutionInput"
                     >
                       Resolution
@@ -367,7 +367,7 @@ const Generator = () => {
                 id="tokenCalculation"
               >
                 <FormLabel
-                  className="text-xs text-muted-foreground"
+                  className="text-xs text-white"
                   htmlFor="submitButton"
                 >
                   This will use{" "}
@@ -392,7 +392,7 @@ const Generator = () => {
           {isLoading && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
               {[...Array(parseInt(selectedAmount, 10))].map((_, index) => (
-                <SkeletonCard key={index} />
+                <SkeletonDark key={index} />
               ))}
             </div>
           )}
@@ -407,7 +407,10 @@ const Generator = () => {
             }
           >
             {images.map((src) => (
-              <Card key={src} className="rounded-lg overflow-hidden">
+              <Card
+                key={src}
+                className="rounded-lg overflow-hidden bg-[#171717] border-0"
+              >
                 <div className="relative aspect-square">
                   <Image height={512} width={512} alt="Generated" src={src} />
                 </div>
@@ -441,7 +444,7 @@ const Generator = () => {
                       }
                     }}
                     variant="outline"
-                    className="w-full"
+                    className="w-full bg-[#202020] border-0 text-white"
                   >
                     <Save className="h-4 w-4 mr-2" />
                     Save

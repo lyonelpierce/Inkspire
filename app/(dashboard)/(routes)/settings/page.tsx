@@ -14,10 +14,10 @@ const SettingsPage = async () => {
         description="Manage account settings."
         icon={Settings}
         iconColor="text-gray-700"
-        bgColor="bg-gray-700/10"
+        bgColor="bg-gray-500/30"
       />
       <div className="px-4 lg:px-8 space-y-4">
-        <div className="text-muted-foreground text-sm">
+        <div className="text-gray-200 text-sm">
           {isPro
             ? "You are currently on a Pro plan."
             : "You are currently on a free plan."}

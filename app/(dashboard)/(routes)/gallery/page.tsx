@@ -2,12 +2,12 @@
 
 import { Heading } from "@/components/Heading";
 import { ImageIcon } from "lucide-react";
-import { Card, CardFooter } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import ImageCard from "@/components/GalleryCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import SkeletonCard from "@/components/SkeletonCard";
+import SkeletonDark from "@/components/SkeletonDark";
 import { useRouter } from "next/navigation";
 
 interface ImageData {
@@ -84,21 +84,26 @@ const Gallery = () => {
         description="Your saved generations"
         icon={ImageIcon}
         iconColor="text-yellow-500"
-        bgColor="bg-yellow-500/10"
+        bgColor="bg-yellow-500/30"
       />
       <div className="px-4 lg:px-8">
         <div>
-          <h2 className="text-lg font-semibold">Public Generations</h2>
+          <div className="text-xl font-semibold">
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+              Public
+            </span>{" "}
+            <span className="text-white">Generations</span>
+          </div>
           <Card
             className={
               images.length === 0
-                ? "bg-gray-100 border-0 mt-8 p-3 flex items-center justify-center"
-                : "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0"
+                ? "bg-[#171717] border-0 mt-5 p-5 flex items-center justify-center"
+                : "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-5 p-5 bg-[#171717] border-0"
             }
           >
             {images.length === 0 ? (
               <div className="flex flex-col items-center p-5 gap-3">
-                <p className="font-medium">No public generations found.</p>
+                <p className="font-medium text-white">No generations found.</p>
 
                 <Button
                   variant="default"
@@ -110,7 +115,7 @@ const Gallery = () => {
               </div>
             ) : !showImages ? (
               Array.from({ length: publicImages.length }).map((_, index) => (
-                <SkeletonCard key={index} />
+                <SkeletonDark key={index} />
               ))
             ) : (
               publicImages.map((imageData) => (
@@ -125,7 +130,12 @@ const Gallery = () => {
         </div>
         <div>
           <div className="flex h-10 items-center mt-8 gap-2">
-            <h2 className="text-lg font-semibold">Private Generations</h2>
+            <div className="text-xl font-semibold">
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+                Private
+              </span>{" "}
+              <span className="text-white">Generations</span>
+            </div>{" "}
             {!isPro && (
               <Badge variant="premium" className="uppercase text-sm py-1">
                 Pro
@@ -133,7 +143,7 @@ const Gallery = () => {
             )}
           </div>
           {isPro && privateImages.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0">
+            <Card className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-5 p-3 bg-[#171717] border-0 p-5">
               {showImages
                 ? privateImages.map((imageData) => (
                     <ImageCard
@@ -143,12 +153,13 @@ const Gallery = () => {
                     />
                   ))
                 : Array.from({ length: privateImages.length }).map(
-                    (_, index) => <SkeletonCard key={index} />
+                    (_, index) => <SkeletonDark key={index} />
                   )}
-            </div>
+            </Card>
           )}
         </div>
       </div>
+      <div className="p-5"></div>
     </div>
   );
 };
