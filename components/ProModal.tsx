@@ -132,7 +132,7 @@ export const ProModal = () => {
         <p className="font-bold text-center text-2xl m-5 text-white">
           Choose a Plan
         </p>
-        <div className="flex flex-row gap-5 items-center justify-center">
+        <div className="flex flex-col gap-5 items-center justify-center sm:flex-row sm:justify-center">
           {!isPro && (
             <Card className="p-7 space-y-3 bg-[#202020] border-0">
               <DialogHeader>
