@@ -15,7 +15,7 @@ export const LandingNavbar = () => {
   return (
     <nav className="p-4 bg-transparent flex items-center justify-between">
       <Link href="/" className="flex items-center gap-2 pl-3 text-white">
-        <PenTool height={30} width={30} />
+        <PenTool height={35} width={35} />
         <h1 className={cn("text-2xl font-bold", font.className)}>Inkspire</h1>
       </Link>
       <div className="flex items-center gap-x-2">

@@ -128,14 +128,16 @@ export const ProModal = () => {
 
   return (
     <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
-      <DialogContent>
-        <p className="font-bold text-center text-xl m-5">Choose a Plan</p>
+      <DialogContent className="bg-[#171717] border-0">
+        <p className="font-bold text-center text-2xl m-5 text-white">
+          Choose a Plan
+        </p>
         <div className="flex flex-row gap-5 items-center justify-center">
           {!isPro && (
-            <Card className="p-7 space-y-3">
+            <Card className="p-7 space-y-3 bg-[#202020] border-0">
               <DialogHeader>
                 <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
-                  <div className="flex items-center gap-x-2 font-bold py-1">
+                  <div className="flex items-center gap-x-2 font-bold py-1 text-white">
                     Upgrade to
                     <Badge variant="premium" className="uppercase text-sm py-1">
                       Pro
@@ -145,7 +147,7 @@ export const ProModal = () => {
                     <p className="font-bold text-3xl text-violet-500">
                       $5 / month
                     </p>
-                    <p className="text-sm font-semibold text-muted-foreground">
+                    <p className="text-sm font-semibold text-gray-400">
                       ex. tax
                     </p>
                   </div>
@@ -154,7 +156,7 @@ export const ProModal = () => {
               {tools.map((tool) => (
                 <Card
                   key={tool.label}
-                  className="p-3 border-black/5 flex items-center justify-between"
+                  className="p-3 border-black/5 flex items-center justify-between bg-[#171717] text-white"
                 >
                   <div className="flex items-center gap-x-4 mx-4">
                     <div className={cn("p-2 w-fit rounded-md ", tool.bgColor)}>
@@ -179,10 +181,10 @@ export const ProModal = () => {
               </DialogFooter>
             </Card>
           )}
-          <Card className="p-7 space-y-3">
+          <Card className="p-7 space-y-3 bg-[#202020] border-0">
             <DialogHeader>
               <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
-                <div className="flex items-center gap-x-2 font-bold py-1">
+                <div className="flex items-center gap-x-2 font-bold py-1 text-white">
                   Upgrade to
                   <Badge variant="premium" className="uppercase text-sm py-1">
                     Business
@@ -192,16 +194,14 @@ export const ProModal = () => {
                   <p className="font-bold text-3xl text-violet-500">
                     $10 / month
                   </p>
-                  <p className="text-sm font-semibold text-muted-foreground">
-                    ex. tax
-                  </p>
+                  <p className="text-sm font-semibold text-gray-400">ex. tax</p>
                 </div>
               </DialogTitle>
             </DialogHeader>
             {business.map((tool) => (
               <Card
                 key={tool.label}
-                className="p-3 border-black/5 flex items-center justify-between"
+                className="p-3 border-black/5 flex items-center justify-between bg-[#171717] text-white"
               >
                 <div className="flex items-center gap-x-4 mx-4">
                   <div className={cn("p-2 w-fit rounded-md ", tool.bgColor)}>

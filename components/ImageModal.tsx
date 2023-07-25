@@ -3,13 +3,32 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useImageModal } from "@/hooks/use-image-modal";
 import { Button } from "@/components/ui/button";
-import { Download, Copy } from "lucide-react";
+import { Download, Copy, Trash2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export const ImageModal = () => {
   const imageModal = useImageModal();
+  const [isOwn, setIsOwn] = useState(false);
   const { imageUrl, imagePrompt, imageStyle, username } = useImageModal();
+
+  useEffect(() => {
+    const handleDelete = async () => {
+      try {
+        const response = await fetch("/api/gallery");
+        const data = await response.json();
+
+        const isPresent = data.some((item: any) => item.imageUrl === imageUrl);
+        setIsOwn(isPresent);
+      } catch (error) {
+        console.error("Error deleting image:", error);
+      }
+    };
+
+    handleDelete();
+  }, [imageUrl]);
 
   const handleDownload = async () => {
     try {
@@ -82,10 +101,21 @@ export const ImageModal = () => {
               {imageStyle}
             </p>
           </div>
-          <Button className="gap-2 font-semibold" onClick={handleDownload}>
-            <Download />
-            Download
-          </Button>
+          <div className="flex justify-between gap-2">
+            <Button
+              className={cn("gap-2 font-semibold", isOwn ? "w-2/3" : "w-full")}
+              onClick={handleDownload}
+            >
+              <Download />
+              Download
+            </Button>
+            {isOwn && (
+              <Button className="gap-2 font-semibold bg-red-500 hover:bg-red-600 w-1/3">
+                <Trash2 />
+                Delete
+              </Button>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>

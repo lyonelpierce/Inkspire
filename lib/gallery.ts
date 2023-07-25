@@ -55,3 +55,21 @@ export const getGallery = async () => {
     return new NextResponse("Internal error", { status: 500 });
   }
 };
+
+export const deleteImage = async (id: string, user: string) => {
+  const userId = auth();
+
+  if (!userId) {
+    return;
+  }
+
+  try {
+    const deleteImage = await prismadb.userGallery.delete({
+      where: { id: id, userId: user },
+    });
+    return deleteImage;
+  } catch (error) {
+    console.log(error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};
