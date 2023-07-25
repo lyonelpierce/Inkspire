@@ -1,7 +1,12 @@
 "use client";
 import { Menu } from "lucide-react";
 
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+} from "@/components/ui/sheet";
 
 import Sidebar from "@/components/Sidebar";
 import { useState, useEffect } from "react";
@@ -28,11 +33,11 @@ const MobileSidebar = ({
   return (
     <Sheet>
       <SheetTrigger>
-        <div className="md:hidden">
-          <Menu />
+        <div className="md:hidden bg-[#6f5af6] rounded-md p-1">
+          <Menu className="text-white" />
         </div>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0">
+      <SheetContent side="left" className="p-0 text-white">
         <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
       </SheetContent>
     </Sheet>
