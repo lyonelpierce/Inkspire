@@ -1,5 +1,3 @@
-"use client";
-
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useImageModal } from "@/hooks/use-image-modal";
 import { Button } from "@/components/ui/button";
@@ -81,7 +79,7 @@ export const ImageModal = () => {
 
   return (
     <Dialog open={imageModal.isOpen} onOpenChange={imageModal.onClose}>
-      <DialogContent className="p-5 flex bg-[#171717] border-0">
+      <DialogContent className="p-5 md:flex bg-[#171717] border-0">
         <Image
           width={512}
           height={512}
@@ -89,7 +87,7 @@ export const ImageModal = () => {
           src={imageUrl}
           className="rounded-lg"
         />
-        <div className="w-lg p-3 flex flex-col gap-5 w-3/5">
+        <div className="md:w-lg p-3 flex flex-col gap-5 w-full md:w-3/5 mt-5 md:mt-0">
           {username && (
             <div className="font-semibold text-gray-300 flex items-center gap-2">
               <div className="bg-[#6653e0] rounded-full w-8 h-8 flex items-center justify-center text-white">
