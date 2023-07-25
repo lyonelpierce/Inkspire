@@ -157,7 +157,6 @@ const Generator = () => {
         body: JSON.stringify(data),
       });
       if (response.status === 200) {
-        console.log(response);
         toast.success("Shared & Saved!");
       } else {
         toast.error("Image already saved.");
@@ -182,6 +181,7 @@ const Generator = () => {
         <div>
           <Form {...form}>
             <form
+              id="generatorForm"
               onSubmit={form.handleSubmit(onSubmit)}
               className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
             >
@@ -189,7 +189,11 @@ const Generator = () => {
                 name="prompt"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-12">
-                    <FormLabel className="text-xs text-muted-foreground">
+                    <FormLabel
+                      className="text-xs text-muted-foreground"
+                      id="promptLabel"
+                      htmlFor="promptInput"
+                    >
                       Prompt
                     </FormLabel>
                     <FormControl className="m-0 p-0">
@@ -198,6 +202,8 @@ const Generator = () => {
                         disabled={isLoading}
                         placeholder="Elon Musk eating a banana while riding a unicorn"
                         {...field}
+                        id="promptInput"
+                        aria-describedby="description"
                       />
                     </FormControl>
                   </FormItem>
@@ -208,7 +214,10 @@ const Generator = () => {
                 name="style"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-3">
-                    <FormLabel className="text-xs text-muted-foreground">
+                    <FormLabel
+                      className="text-xs text-muted-foreground"
+                      htmlFor="styleInput"
+                    >
                       Style
                     </FormLabel>
                     <Select
@@ -217,11 +226,9 @@ const Generator = () => {
                       value={field.value}
                       defaultValue={field.value}
                     >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue defaultValue={field.value} />
-                        </SelectTrigger>
-                      </FormControl>
+                      <SelectTrigger aria-controls="styleInput">
+                        <SelectValue defaultValue={field.value} />
+                      </SelectTrigger>
                       <SelectContent>
                         {styleOptions.map((option) => (
                           <SelectItem
@@ -242,7 +249,10 @@ const Generator = () => {
                 name="amount"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-3">
-                    <FormLabel className="text-xs text-muted-foreground">
+                    <FormLabel
+                      className="text-xs text-muted-foreground"
+                      htmlFor="amountInput"
+                    >
                       Number of Images
                     </FormLabel>
                     <Select
@@ -257,11 +267,9 @@ const Generator = () => {
                       value={field.value}
                       defaultValue={field.value}
                     >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue defaultValue={field.value} />
-                        </SelectTrigger>
-                      </FormControl>
+                      <SelectTrigger aria-controls="amountInput">
+                        <SelectValue defaultValue={field.value} />
+                      </SelectTrigger>
                       <SelectContent>
                         {amountOptions.map((option) => {
                           const isDisabled = isOptionDisabledForNonPro(
@@ -300,7 +308,10 @@ const Generator = () => {
                 name="resolution"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-3">
-                    <FormLabel className="text-xs text-muted-foreground">
+                    <FormLabel
+                      className="text-xs text-muted-foreground"
+                      htmlFor="resolutionInput"
+                    >
                       Resolution
                     </FormLabel>
                     <Select
@@ -315,11 +326,9 @@ const Generator = () => {
                       value={field.value}
                       defaultValue={field.value}
                     >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue defaultValue={field.value} />
-                        </SelectTrigger>
-                      </FormControl>
+                      <SelectTrigger aria-controls="resolutionInput">
+                        <SelectValue defaultValue={field.value} />
+                      </SelectTrigger>
                       <SelectContent>
                         {resolutionOptions.map((option) => {
                           const isDisabled = isOptionDisabledForNonPro(
@@ -353,8 +362,14 @@ const Generator = () => {
                   </FormItem>
                 )}
               />
-              <FormItem className="col-span-12 lg:col-span-3">
-                <FormLabel className="text-xs text-muted-foreground">
+              <FormItem
+                className="col-span-12 lg:col-span-3"
+                id="tokenCalculation"
+              >
+                <FormLabel
+                  className="text-xs text-muted-foreground"
+                  htmlFor="submitButton"
+                >
                   This will use{" "}
                   {calculateTokens(
                     form.watch("amount"),
@@ -363,6 +378,7 @@ const Generator = () => {
                   tokens
                 </FormLabel>
                 <Button
+                  id="submitButton"
                   className="col-span-12 lg:col-span-2 w-full"
                   type="submit"
                   disabled={isLoading}
@@ -393,7 +409,7 @@ const Generator = () => {
             {images.map((src) => (
               <Card key={src} className="rounded-lg overflow-hidden">
                 <div className="relative aspect-square">
-                  <Image fill alt="Generated" src={src} />
+                  <Image height={512} width={512} alt="Generated" src={src} />
                 </div>
                 <CardFooter className="p-2 gap-2">
                   <Button
@@ -418,7 +434,7 @@ const Generator = () => {
                           src,
                           form.getValues("prompt"),
                           form.getValues("style"),
-                          true
+                          false
                         );
                       } else {
                         proModal.onOpen();
@@ -443,7 +459,7 @@ const Generator = () => {
             ))}
           </div>
           <Toaster
-            position="bottom-right"
+            position="bottom-center"
             toastOptions={{
               style: {
                 background: "#333",

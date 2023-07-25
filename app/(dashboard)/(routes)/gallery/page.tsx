@@ -113,7 +113,11 @@ const Gallery = () => {
               ))
             ) : (
               publicImages.map((imageData) => (
-                <ImageCard key={imageData.id} imageData={imageData} />
+                <ImageCard
+                  key={imageData.id}
+                  imageData={imageData}
+                  onRemove={() => {}}
+                />
               ))
             )}
           </Card>
@@ -131,7 +135,11 @@ const Gallery = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8 p-3 bg-gray-100 border-0">
               {showImages
                 ? privateImages.map((imageData) => (
-                    <ImageCard key={imageData.id} imageData={imageData} />
+                    <ImageCard
+                      key={imageData.id}
+                      imageData={imageData}
+                      onRemove={() => {}}
+                    />
                   ))
                 : Array.from({ length: privateImages.length }).map(
                     (_, index) => <SkeletonCard key={index} />

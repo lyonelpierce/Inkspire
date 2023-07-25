@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 import { Heading } from "@/components/Heading";
 import { styleOptions } from "../../../../constants";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -14,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import ImageCard from "@/components/GalleryCard";
 import SkeletonCard from "@/components/SkeletonCard";
+import { useRouter } from "next/navigation";
 
 interface ImageData {
   id: string;
@@ -25,6 +28,7 @@ interface ImageData {
 }
 
 const Dashboard = () => {
+  const router = useRouter();
   const [images, setImages] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,8 +63,7 @@ const Dashboard = () => {
       selectedStyle === "" || imageData.imageStyle.includes(selectedStyle);
     const matchSearch =
       searchQuery === "" ||
-      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      imageData.imageStyle.toLowerCase().includes(searchQuery.toLowerCase());
+      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchPrompt && matchStyle && matchSearch;
   });
@@ -87,22 +90,22 @@ const Dashboard = () => {
           bgColor="bg-pink-700/10"
         />
         <div className="flex space-x-4 px-7">
-          <input
+          <Input
             type="text"
             placeholder="Search by prompt..."
-            value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-gray-100 px-3 py-2 rounded-md border-gray-300 focus:ring-sky-500 focus:border-sky-500 flex-1 text-sm border"
+            value={searchQuery}
+            className="bg-gray-100 "
           />
           <Select onValueChange={(value: string) => setSelectedStyle(value)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px]" aria-controls="content">
               <SelectValue>
                 {selectedStyle === ""
                   ? "All Styles"
                   : getLabelByValue(selectedStyle)}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent id="content">
               {styleOptions.map((style) => (
                 <SelectItem
                   key={style.value}
@@ -128,7 +131,16 @@ const Dashboard = () => {
                 <SkeletonCard key={index} />
               ))
             ) : filteredImages.length === 0 ? (
-              <p>No images found</p>
+              <div className="col-span-full flex flex-col items-center justify-center p-5 gap-3">
+                <p className="font-medium">No favorite generations found</p>
+                <Button
+                  variant="default"
+                  className="w-fit"
+                  onClick={() => router.push("/explore")}
+                >
+                  Explore
+                </Button>
+              </div>
             ) : (
               filteredImages.map((imageData) => (
                 <ImageCard

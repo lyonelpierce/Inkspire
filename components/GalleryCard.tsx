@@ -89,7 +89,12 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
       className="relative rounded-lg overflow-hidden group hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
     >
       <div className="aspect-square">
-        <Image fill alt="Generated" src={imageData.imageUrl} />
+        <Image
+          height={512}
+          width={512}
+          alt="Generated"
+          src={imageData.imageUrl}
+        />
       </div>
       <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100">
         {/* Black vignette over the image */}

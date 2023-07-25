@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import ImageCard from "@/components/GalleryCard";
 import SkeletonCard from "@/components/SkeletonCard";
 
@@ -59,9 +60,7 @@ const Dashboard = () => {
       selectedStyle === "" || imageData.imageStyle.includes(selectedStyle);
     const matchSearch =
       searchQuery === "" ||
-      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      imageData.imageStyle.toLowerCase().includes(searchQuery.toLowerCase());
-
+      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchPrompt && matchStyle && matchSearch;
   });
 
@@ -81,22 +80,22 @@ const Dashboard = () => {
           bgColor="bg-sky-500/10"
         />
         <div className="flex space-x-4 px-7">
-          <input
+          <Input
             type="text"
             placeholder="Search by prompt..."
-            value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-gray-100 px-3 py-2 rounded-md border-gray-300 focus:ring-sky-500 focus:border-sky-500 flex-1 text-sm border"
+            value={searchQuery}
+            className="bg-gray-100 "
           />
           <Select onValueChange={(value: string) => setSelectedStyle(value)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px]" aria-controls="content">
               <SelectValue>
                 {selectedStyle === ""
                   ? "All Styles"
                   : getLabelByValue(selectedStyle)}
               </SelectValue>
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent id="content">
               {styleOptions.map((style) => (
                 <SelectItem
                   key={style.value}
@@ -122,7 +121,9 @@ const Dashboard = () => {
                 <SkeletonCard key={index} />
               ))
             ) : filteredImages.length === 0 ? (
-              <p>No images found</p>
+              <div className="col-span-full flex flex-col items-center justify-center p-5 gap-3">
+                <p className="font-medium">No generations found</p>
+              </div>
             ) : (
               filteredImages.map((imageData) => (
                 <ImageCard

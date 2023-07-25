@@ -32,9 +32,7 @@ export const ImageModal = () => {
 
   const handleCopyPrompt = () => {
     navigator.clipboard.writeText(imagePrompt).then(
-      () => {
-        console.log("Prompt copied to clipboard:", imagePrompt);
-      },
+      () => {},
       (error) => {
         console.error("Error copying prompt to clipboard:", error);
       }
@@ -54,12 +52,14 @@ export const ImageModal = () => {
           className="rounded-lg"
         />
         <div className="w-lg p-3 flex flex-col gap-5 w-3/5">
-          <div className="font-semibold text-violet-500 text-lg flex items-center gap-2">
-            <div className="bg-violet-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
-              {firstLetter}
+          {username && (
+            <div className="font-semibold text-violet-500 flex items-center gap-2">
+              <div className="bg-violet-500 rounded-full w-8 h-8 flex items-center justify-center text-white">
+                {firstLetter}
+              </div>
+              {username}
             </div>
-            {username}
-          </div>
+          )}
           <div className="bg-gray-100 rounded-lg p-3">
             <div className="flex justify-between items-center mb-2">
               <p className="font-semibold text-sm">Prompt:</p>
