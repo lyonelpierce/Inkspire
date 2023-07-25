@@ -54,7 +54,7 @@ const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-black text-white border-r border-white/10">
       <div className="px-3 py-2 flex-1">
-        <Link href="/" className="flex items-center gap-2 pl-3 mb-10 ">
+        <Link href="/" className="flex items-center gap-2 pl-3 mb-10 w-fit">
           <PenTool height={30} width={30} />
           <h1 className={cn("text-2xl font-bold", montserrat.className)}>
             Inkspire
