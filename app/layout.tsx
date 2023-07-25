@@ -6,6 +6,8 @@ import { ModalProvider } from "@/components/ModalProvider";
 import { ImageModalProvider } from "@/components/ImageModalProvider";
 import { CrispProvider } from "@/components/CrispProvider";
 
+import { dark } from "@clerk/themes";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="en">
         <CrispProvider />
         <body className={`bg-black ${inter.className}`}>
