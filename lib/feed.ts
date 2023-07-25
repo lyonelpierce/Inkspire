@@ -14,7 +14,6 @@ export const getFeed = async () => {
     const userIds = feed.map((item) => item.userId);
     const url = `${CLERK_API_BASE_URL}/users`;
 
-    // Fetch all user data in parallel using Promise.all
     const userResponses = await Promise.all(
       userIds.map((userId) => {
         const headers = {
@@ -25,19 +24,16 @@ export const getFeed = async () => {
       })
     );
 
-    // Check if all fetch requests were successful
     for (const response of userResponses) {
       if (!response.ok) {
         throw new Error(`Request failed with status: ${response.status}`);
       }
     }
 
-    // Parse the JSON data from the responses and extract the usernames
     const usernames = await Promise.all(
       userResponses.map((response) => response.json())
     );
 
-    // Map the usernames back to the feed items
     const feedWithUsernames = feed.map((item, index) => ({
       ...item,
       username: usernames[index].username,

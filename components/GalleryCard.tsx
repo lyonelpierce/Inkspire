@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useImageModal } from "@/hooks/use-image-modal";
 
 interface ImageData {
   id: string;
@@ -15,6 +16,8 @@ interface ImageData {
 
 const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const imageModal = useImageModal();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
@@ -59,6 +62,18 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
       });
   };
 
+  const handleOpen = () => {
+    const { imageUrl, imagePrompt, imageStyle, username } = imageData;
+
+    useImageModal.setState({
+      imageUrl,
+      imagePrompt,
+      imageStyle,
+      username,
+    });
+    imageModal.onOpen();
+  };
+
   return (
     <Card
       key={imageData.id}
@@ -69,7 +84,10 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
       </div>
       <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100">
         {/* Black vignette over the image */}
-        <div className="w-full h-full bg-gradient-to-br from-transparent via-black to-black opacity-60"></div>
+        <div
+          className="w-full h-full bg-gradient-to-br from-transparent via-black to-black opacity-60"
+          onClick={handleOpen}
+        ></div>
 
         {/* Text content */}
         <div className="absolute bottom-0 left-0 w-full text-white text-sm p-4 group-hover:opacity-100">

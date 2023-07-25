@@ -5,9 +5,9 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { useProModal } from "@/hooks/use-pro-modal";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import { Badge } from "@/components/ui/badge";
 import {
   PenTool,
@@ -16,40 +16,66 @@ import {
   Zap,
   GalleryHorizontalEnd,
   Scaling,
+  MinusCircle,
+  ImageMinus,
+  Clock,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const tools = [
   {
-    label: "1000 Tokens",
+    label: "2000 Tokens",
     icon: PenTool,
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",
-    href: "/generator",
   },
   {
     label: "Private Generations",
     icon: ImageIcon,
     color: "text-pink-700",
     bgColor: "bg-pink-700/10",
-    href: "/gallery",
   },
   {
     label: "Up to 4 Multiple Generations",
     icon: GalleryHorizontalEnd,
     color: "text-yellow-500",
     bgColor: "bg-yellow-500/10",
-    href: "/favorites",
   },
   {
     label: "Up to 1024x1024 resolution",
     icon: Scaling,
     color: "text-orange-700",
     bgColor: "bg-orange-700/10",
-    href: "/favorites",
+  },
+];
+
+const business = [
+  {
+    label: "Unlimited Generations",
+    icon: PenTool,
+    color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
+  },
+  {
+    label: "Generations from an Image",
+    icon: ImageIcon,
+    color: "text-pink-700",
+    bgColor: "bg-pink-700/10",
+  },
+  {
+    label: "Background Removal",
+    icon: ImageMinus,
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-500/10",
+  },
+  {
+    label: "Negative Prompt",
+    icon: MinusCircle,
+    color: "text-orange-700",
+    bgColor: "bg-orange-700/10",
   },
 ];
 
@@ -67,7 +93,6 @@ export const ProModal = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
       window.location.href = data.url;
     } catch (error) {
       console.log(error);
@@ -76,45 +101,129 @@ export const ProModal = () => {
     }
   };
 
+  const [isPro, setIsPro] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const fetchSubscriptionStatus = async () => {
+      try {
+        const response = await fetch("/api/subscription", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setIsPro(data.isPro);
+        } else {
+          setIsPro(false);
+        }
+      } catch (error) {
+        setIsPro(false);
+      }
+    };
+
+    fetchSubscriptionStatus();
+  }, []);
+
   return (
     <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
-            <div className="flex items-center gap-x-2 font-bold py-1">
-              Upgrade to Pro
-              <Badge variant="premium" className="uppercase text-sm py-1">
-                Pro
-              </Badge>
-            </div>
-          </DialogTitle>
-        </DialogHeader>
-        {tools.map((tool) => (
-          <Card
-            key={tool.label}
-            className="p-3 border-black/5 flex items-center justify-between"
-          >
-            <div className="flex items-center gap-x-4">
-              <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
-                <tool.icon className={cn("h-6 w-6", tool.color)} />
-              </div>
-              <div className="font-semibold text-sm">{tool.label}</div>
-            </div>
-            <Check className="text-primary w-5 h-5" />
+        <p className="font-bold text-center text-xl m-5">Choose a Plan</p>
+        <div className="flex flex-row gap-5 items-center justify-center">
+          {!isPro && (
+            <Card className="p-7 space-y-3">
+              <DialogHeader>
+                <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
+                  <div className="flex items-center gap-x-2 font-bold py-1">
+                    Upgrade to
+                    <Badge variant="premium" className="uppercase text-sm py-1">
+                      Pro
+                    </Badge>
+                  </div>
+                  <div className="text-center">
+                    <p className="font-bold text-3xl text-violet-500">
+                      $5 / month
+                    </p>
+                    <p className="text-sm font-semibold text-muted-foreground">
+                      ex. tax
+                    </p>
+                  </div>
+                </DialogTitle>
+              </DialogHeader>
+              {tools.map((tool) => (
+                <Card
+                  key={tool.label}
+                  className="p-3 border-black/5 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-x-4 mx-4">
+                    <div className={cn("p-2 w-fit rounded-md ", tool.bgColor)}>
+                      <tool.icon className={cn("h-6 w-6", tool.color)} />
+                    </div>
+                    <div className="font-semibold text-sm">{tool.label}</div>
+                  </div>
+                  <Check className="text-primary w-5 h-5" />
+                </Card>
+              ))}
+              <DialogFooter>
+                <Button
+                  disabled={loading}
+                  onClick={onSubscribe}
+                  size="lg"
+                  variant="premium"
+                  className="w-full"
+                >
+                  Upgrade
+                  <Zap className="w-4 g-4 ml-2 fill-white" />
+                </Button>
+              </DialogFooter>
+            </Card>
+          )}
+          <Card className="p-7 space-y-3">
+            <DialogHeader>
+              <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
+                <div className="flex items-center gap-x-2 font-bold py-1">
+                  Upgrade to
+                  <Badge variant="premium" className="uppercase text-sm py-1">
+                    Business
+                  </Badge>
+                </div>
+                <div className="text-center">
+                  <p className="font-bold text-3xl text-violet-500">
+                    $10 / month
+                  </p>
+                  <p className="text-sm font-semibold text-muted-foreground">
+                    ex. tax
+                  </p>
+                </div>
+              </DialogTitle>
+            </DialogHeader>
+            {business.map((tool) => (
+              <Card
+                key={tool.label}
+                className="p-3 border-black/5 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-x-4 mx-4">
+                  <div className={cn("p-2 w-fit rounded-md ", tool.bgColor)}>
+                    <tool.icon className={cn("h-6 w-6", tool.color)} />
+                  </div>
+                  <div className="font-semibold text-sm">{tool.label}</div>
+                </div>
+                {tool.label === "Background Removal" ? (
+                  <Clock className="text-primary w-5 h-5" />
+                ) : (
+                  <Check className="text-primary w-5 h-5" />
+                )}
+              </Card>
+            ))}
+            <DialogFooter>
+              <Button disabled size="lg" variant="premium" className="w-full">
+                Coming Soon
+                <Zap className="w-4 g-4 ml-2 fill-white" />
+              </Button>
+            </DialogFooter>
           </Card>
-        ))}
-        <DialogFooter>
-          <Button
-            disabled={loading}
-            onClick={onSubscribe}
-            size="lg"
-            variant="premium"
-            className="w-full"
-          >
-            Upgrade
-            <Zap className="w-4 g-4 ml-2 fill-white" />
-          </Button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );

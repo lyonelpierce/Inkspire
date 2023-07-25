@@ -2,6 +2,9 @@ import { auth } from "@clerk/nextjs";
 
 import prismadb from "./prismadb";
 
+const CLERK_API_BASE_URL = "https://api.clerk.com/v1";
+const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
+
 const setFavorite = async (imageId: string) => {
   const { userId } = auth();
 
@@ -73,15 +76,49 @@ const checkFavorite = async (imageId?: any) => {
       },
     });
 
+    const userIds = favorites.map((favorite) => favorite.userId);
+
+    // Fetch user data for all userIds
+    const url = `${CLERK_API_BASE_URL}/users`;
+    const headers = {
+      Authorization: `Bearer ${CLERK_SECRET_KEY}`,
+    };
+
+    const userResponses = await Promise.all(
+      userIds.map((userId) => {
+        const userUrl = `${url}/${userId}`;
+        return fetch(userUrl, { headers });
+      })
+    );
+
+    // Check if all fetch requests were successful
+    for (const response of userResponses) {
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    }
+
+    // Parse the JSON data from the responses and extract the usernames
+    const usernames = await Promise.all(
+      userResponses.map((response) => response.json())
+    );
+
+    // Map the usernames back to the favorites
     const favoriteImages = await Promise.all(
-      favorites.map(async (favorite) => {
+      favorites.map(async (favorite, index) => {
         const { imageId } = favorite;
         const image = await prismadb.userGallery.findUnique({
           where: {
             id: imageId,
           },
         });
-        return image;
+
+        // Add the corresponding username to the image object
+        const imageWithUsername = {
+          ...image,
+          username: usernames[index].username,
+        };
+        return imageWithUsername;
       })
     );
 

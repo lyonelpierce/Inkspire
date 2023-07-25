@@ -27,7 +27,6 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Loader } from "@/components/Loader";
 import {
   formSchema,
   amountOptions,
