@@ -9,8 +9,8 @@ import { MAX_PRO_COUNTS } from "@/constants";
 const styleOptions: Record<string, { modelId: string; defaultPrompt: string }> =
   {
     watercolor: {
-      modelId: "69f6f875-1070-4b0a-90c5-3d55c6f3b58b",
-      defaultPrompt: "watercolor tattoo style",
+      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
+      defaultPrompt: "using watercolor tattoo style, no background",
     },
     minimalist: {
       modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
@@ -21,28 +21,28 @@ const styleOptions: Record<string, { modelId: string; defaultPrompt: string }> =
       defaultPrompt: "line art, geometric tattoo style",
     },
     traditional: {
-      modelId: "b455e572-6d9b-42e2-82f9-e80813d1c1ba",
-      defaultPrompt: "traditional tattoo style",
+      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
+      defaultPrompt: "using traditional tattoo style, no background",
     },
     surrealism: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "surrealism tattoo style",
+      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
+      defaultPrompt: "using surrealism tattoo style, no background",
     },
     realism: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "realism tattoo style",
+      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
+      defaultPrompt: "using realism tattoo style, no background",
     },
     anime: {
       modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "anime tattoo style",
+      defaultPrompt: "using anime tattoo style, no background",
     },
     blackandgrey: {
-      modelId: "4f5ae989-0eab-4a37-97be-54a5ea8d0ccf",
-      defaultPrompt: "Ai blackwork tattoo, black and white, tattoo style",
+      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
+      defaultPrompt: "using black and grey tattoo style, no background",
     },
     newschool: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "New School tattoo style",
+      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
+      defaultPrompt: "using new school tattoo style, no background",
     },
     dotwork: {
       modelId: "bd4ec11e-fd1b-46c4-a159-ef0b48acfcd8",
@@ -53,8 +53,8 @@ const styleOptions: Record<string, { modelId: string; defaultPrompt: string }> =
       defaultPrompt: "tribal style, tattoo style, black",
     },
     japanese: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "japanese tattoo style",
+      modelId: "b63f7119-31dc-4540-969b-2a9df997e173",
+      defaultPrompt: "using japanese tattoo style, no background",
     },
     sketch: {
       modelId: "e6166dfd-9623-4a98-83ad-4decc38785b1",
