@@ -36,11 +36,11 @@ const styleOptions: Record<string, { modelId: string; defaultPrompt: string }> =
       modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
       defaultPrompt: "anime tattoo style",
     },
-    blackAndGrey: {
+    blackandgrey: {
       modelId: "4f5ae989-0eab-4a37-97be-54a5ea8d0ccf",
       defaultPrompt: "Ai blackwork tattoo, black and white, tattoo style",
     },
-    newSchool: {
+    newschool: {
       modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
       defaultPrompt: "New School tattoo style",
     },
