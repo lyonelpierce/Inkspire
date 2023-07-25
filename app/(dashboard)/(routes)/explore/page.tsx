@@ -4,17 +4,9 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Search } from "lucide-react";
 import { Heading } from "@/components/Heading";
-import { styleOptions } from "../../../../constants";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import ImageCard from "@/components/GalleryCard";
 import SkeletonCard from "@/components/SkeletonCard";
+import SearchBar from "@/components/SearchBar";
 
 interface ImageData {
   id: string;
@@ -28,10 +20,8 @@ interface ImageData {
 const Dashboard = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedStyle, setSelectedStyle] = useState("");
-  const [selectedPrompt, setSelectedPrompt] = useState("");
   const [showImages, setShowImages] = useState(false);
+  const [filteredImages, setFilteredImages] = useState<ImageData[]>([]);
 
   const getImages = async () => {
     try {
@@ -53,22 +43,6 @@ const Dashboard = () => {
     getImages();
   }, []);
 
-  const filteredImages = images.filter((imageData) => {
-    const matchPrompt =
-      selectedPrompt === "" || imageData.imagePrompt.includes(selectedPrompt);
-    const matchStyle =
-      selectedStyle === "" || imageData.imageStyle.includes(selectedStyle);
-    const matchSearch =
-      searchQuery === "" ||
-      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchPrompt && matchStyle && matchSearch;
-  });
-
-  function getLabelByValue(value: string) {
-    const selectedOption = styleOptions.find((style) => style.value === value);
-    return selectedOption ? selectedOption.label : "";
-  }
-
   return (
     <div>
       <div className="flex sm:flex-row flex-col w-full justify-between sm:items-center">
@@ -79,35 +53,7 @@ const Dashboard = () => {
           iconColor="text-sky-500"
           bgColor="bg-sky-500/10"
         />
-        <div className="flex space-x-4 px-7">
-          <Input
-            type="text"
-            placeholder="Search by prompt..."
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            className="bg-gray-100 "
-          />
-          <Select onValueChange={(value: string) => setSelectedStyle(value)}>
-            <SelectTrigger className="w-[180px]" aria-controls="content">
-              <SelectValue>
-                {selectedStyle === ""
-                  ? "All Styles"
-                  : getLabelByValue(selectedStyle)}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent id="content">
-              {styleOptions.map((style) => (
-                <SelectItem
-                  key={style.value}
-                  value={style.value}
-                  className="cursor-pointer"
-                >
-                  {style.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <SearchBar images={images} setFilteredImages={setFilteredImages} />
       </div>
       <div className="px-4 lg:px-8">
         <div>

@@ -17,6 +17,7 @@ import {
 import ImageCard from "@/components/GalleryCard";
 import SkeletonCard from "@/components/SkeletonCard";
 import { useRouter } from "next/navigation";
+import SearchBar from "@/components/SearchBar";
 
 interface ImageData {
   id: string;
@@ -35,6 +36,7 @@ const Dashboard = () => {
   const [selectedStyle, setSelectedStyle] = useState("");
   const [selectedPrompt, setSelectedPrompt] = useState("");
   const [showImages, setShowImages] = useState(false);
+  const [filteredImages, setFilteredImages] = useState<ImageData[]>([]);
 
   const getImages = async () => {
     try {
@@ -55,18 +57,6 @@ const Dashboard = () => {
   useEffect(() => {
     getImages();
   }, []);
-
-  const filteredImages = images.filter((imageData) => {
-    const matchPrompt =
-      selectedPrompt === "" || imageData.imagePrompt.includes(selectedPrompt);
-    const matchStyle =
-      selectedStyle === "" || imageData.imageStyle.includes(selectedStyle);
-    const matchSearch =
-      searchQuery === "" ||
-      imageData.imagePrompt.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchPrompt && matchStyle && matchSearch;
-  });
 
   function getLabelByValue(value: string) {
     const selectedOption = styleOptions.find((style) => style.value === value);
@@ -89,35 +79,7 @@ const Dashboard = () => {
           iconColor="text-pink-700"
           bgColor="bg-pink-700/10"
         />
-        <div className="flex space-x-4 px-7">
-          <Input
-            type="text"
-            placeholder="Search by prompt..."
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            className="bg-gray-100 "
-          />
-          <Select onValueChange={(value: string) => setSelectedStyle(value)}>
-            <SelectTrigger className="w-[180px]" aria-controls="content">
-              <SelectValue>
-                {selectedStyle === ""
-                  ? "All Styles"
-                  : getLabelByValue(selectedStyle)}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent id="content">
-              {styleOptions.map((style) => (
-                <SelectItem
-                  key={style.value}
-                  value={style.value}
-                  className="cursor-pointer"
-                >
-                  {style.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <SearchBar images={images} setFilteredImages={setFilteredImages} />
       </div>
       <div className="px-4 lg:px-8">
         <div>
