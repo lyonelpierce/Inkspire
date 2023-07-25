@@ -15,6 +15,7 @@ const MobileSidebar = ({
   isPro = false,
 }: MobileSidebarProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -24,21 +25,17 @@ const MobileSidebar = ({
     return null;
   }
 
-  const handleClose = (event: any) => {
-    setIsMounted(false);
-  };
-
   return (
-    <Sheet>
-      <SheetTrigger asChild>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger>
         <div className="md:hidden">
-          <Menu className="text-white " height={30} width={30} />
+          <Menu className="text-white" height={30} width={30} />
         </div>
       </SheetTrigger>
       <SheetContent
         side="left"
         className="p-0 text-white"
-        onClick={handleClose}
+        onClick={() => setOpen(false)}
       >
         <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
       </SheetContent>
