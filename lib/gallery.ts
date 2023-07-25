@@ -56,20 +56,19 @@ export const getGallery = async () => {
   }
 };
 
-export const deleteImage = async (id: string, user: string) => {
-  const userId = auth();
+export const deleteImage = async (id: string) => {
+  const { userId } = auth();
 
   if (!userId) {
     return;
   }
 
   try {
-    const deleteImage = await prismadb.userGallery.delete({
-      where: { id: id, userId: user },
+    const deleteImageResult = await prismadb.userGallery.delete({
+      where: { id: id, userId: userId },
     });
-    return deleteImage;
   } catch (error) {
-    console.log(error);
-    return new NextResponse("Internal error", { status: 500 });
+    console.error(error);
+    throw new Error("Internal error");
   }
 };

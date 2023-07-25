@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 interface useImageModal {
+  imageId: string;
   imageUrl: string;
   imagePrompt: string;
   imageStyle: string;
@@ -11,6 +12,7 @@ interface useImageModal {
 }
 
 export const useImageModal = create<useImageModal>((set) => ({
+  imageId: "",
   imageUrl: "",
   imagePrompt: "",
   imageStyle: "",

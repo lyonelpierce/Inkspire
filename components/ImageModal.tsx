@@ -12,7 +12,8 @@ import { useEffect, useState } from "react";
 export const ImageModal = () => {
   const imageModal = useImageModal();
   const [isOwn, setIsOwn] = useState(false);
-  const { imageUrl, imagePrompt, imageStyle, username } = useImageModal();
+  const { imageUrl, imagePrompt, imageStyle, username, imageId } =
+    useImageModal();
 
   useEffect(() => {
     const handleDelete = async () => {
@@ -59,6 +60,24 @@ export const ImageModal = () => {
   };
 
   const firstLetter = username ? username.charAt(0).toUpperCase() : "";
+
+  const handleDelete = async (imageId: string) => {
+    try {
+      const response = await fetch("/api/gallery", {
+        method: "DELETE",
+        body: JSON.stringify({ imageId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  };
 
   return (
     <Dialog open={imageModal.isOpen} onOpenChange={imageModal.onClose}>
@@ -110,7 +129,12 @@ export const ImageModal = () => {
               Download
             </Button>
             {isOwn && (
-              <Button className="gap-2 font-semibold bg-red-500 hover:bg-red-600 w-1/3">
+              <Button
+                className="gap-2 font-semibold bg-red-500 hover:bg-red-600 w-1/3"
+                onClick={() => {
+                  handleDelete(imageId);
+                }}
+              >
                 <Trash2 />
                 Delete
               </Button>

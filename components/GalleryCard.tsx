@@ -72,13 +72,14 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
   };
 
   const handleOpen = () => {
-    const { imageUrl, imagePrompt, imageStyle, username } = imageData;
+    const { imageUrl, imagePrompt, imageStyle, username, id } = imageData;
 
     useImageModal.setState({
       imageUrl,
       imagePrompt,
       imageStyle,
       username,
+      imageId: id,
     });
     imageModal.onOpen();
   };

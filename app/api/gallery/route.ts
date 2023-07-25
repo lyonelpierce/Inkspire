@@ -29,11 +29,11 @@ export async function GET() {
 
 export async function DELETE(req: Request) {
   const request = await req.json();
-  console.log(request);
+  const { imageId } = request;
   try {
-    // const deleteCard = await deleteImage();
+    await deleteImage(imageId);
+    return new NextResponse("Success", { status: 200 });
   } catch (error) {
-    console.log(error);
     return new NextResponse("Internal error.", { status: 500 });
   }
 }
