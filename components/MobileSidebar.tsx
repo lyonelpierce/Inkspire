@@ -2,12 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetClose,
-} from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Sidebar from "@/components/Sidebar";
 
 interface MobileSidebarProps {
@@ -29,6 +24,11 @@ const MobileSidebar = ({
     return null;
   }
 
+  const handleClose = (event: any) => {
+    event.preventDefault();
+    setIsMounted(false);
+  };
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -37,9 +37,10 @@ const MobileSidebar = ({
         </div>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 text-white">
-        <SheetClose asChild>
-          <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
-        </SheetClose>
+        <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
+        <a href="#" onClick={handleClose}>
+          Close
+        </a>
       </SheetContent>
     </Sheet>
   );
