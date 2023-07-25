@@ -25,22 +25,22 @@ const MobileSidebar = ({
   }
 
   const handleClose = (event: any) => {
-    event.preventDefault();
     setIsMounted(false);
   };
 
   return (
     <Sheet>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <div className="md:hidden">
-          <Menu className="text-white " height={25} width={25} />
+          <Menu className="text-white " height={30} width={30} />
         </div>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 text-white">
+      <SheetContent
+        side="left"
+        className="p-0 text-white"
+        onClick={handleClose}
+      >
         <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
-        <a href="#" onClick={handleClose}>
-          Close
-        </a>
       </SheetContent>
     </Sheet>
   );
