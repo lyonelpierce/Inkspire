@@ -63,8 +63,12 @@ export const ImageModal = () => {
           <div className="bg-gray-100 rounded-lg p-3">
             <div className="flex justify-between items-center mb-2">
               <p className="font-semibold text-sm">Prompt:</p>
-              <Button onClick={handleCopyPrompt} className="rounded-full h-15">
-                <Copy size={15} />
+              <Button
+                onClick={handleCopyPrompt}
+                className="rounded-full h-15 flex gap-2"
+                variant="outline"
+              >
+                <Copy size={10} />
                 <span className="text-xs font-medium">Copy prompt</span>
               </Button>
             </div>

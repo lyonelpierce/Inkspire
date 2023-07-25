@@ -96,15 +96,16 @@ const ImageCard: React.FC<{ imageData: ImageData }> = ({ imageData }) => {
         </div>
 
         {/* Button in the top-left corner */}
-        <p className="absolute top-2 left-2 px-2 py-3 text-white text-sm font-medium">
+        <p className="absolute top-2 left-2 px-2 py-4 text-white text-sm font-medium">
           {imageData.username}
         </p>
 
         {/* Heart Icon */}
         <Heart
           className={cn(
-            "absolute top-4 right-4 text-white hover:text-red-500 w-8 h-8 opacity-0 group-hover:opacity-100",
-            isLiked && "text-red-500"
+            "absolute top-4 right-4 text-white hover:text-red-500 w-10 h-10 p-2 opacity-0 group-hover:opacity-100 ",
+            isLiked &&
+              "text-opacity-100 bg-red-500 rounded-full w-10 h-10 p-2 flex items-center justify-center hover:text-white/50"
           )}
           onClick={handleLikeClick}
         />
