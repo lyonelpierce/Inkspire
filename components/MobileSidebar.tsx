@@ -16,6 +16,7 @@ const MobileSidebar = ({
   isPro = false,
 }: MobileSidebarProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,17 +26,32 @@ const MobileSidebar = ({
     return null;
   }
 
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
-    <Sheet>
-      <SheetTrigger>
-        <div className="md:hidden">
-          <Menu className="text-white " height={25} width={25} />
-        </div>
-      </SheetTrigger>
-      <SheetContent side="left" className="p-0 text-white">
-        <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
-      </SheetContent>
-    </Sheet>
+    <>
+      <Sheet>
+        <SheetTrigger>
+          <div className="md:hidden" onClick={handleSidebarToggle}>
+            <Menu className="text-white " height={25} width={25} />
+          </div>
+        </SheetTrigger>
+        <SheetContent
+          side="left"
+          className={`p-0 text-white ${isSidebarOpen ? "block" : "hidden"}`}
+        >
+          <Sidebar isPro={isPro} apiLimitCount={apiLimitCount} />
+        </SheetContent>
+      </Sheet>
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-50"
+          onClick={handleSidebarToggle}
+        />
+      )}
+    </>
   );
 };
 
