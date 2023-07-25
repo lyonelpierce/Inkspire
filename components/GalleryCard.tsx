@@ -49,10 +49,8 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
   const handleLikeClick = () => {
     if (isLiked) {
       setIsLiked(false);
-      console.log(false);
     } else {
       setIsLiked(true);
-      console.log(true);
     }
 
     fetch("/api/favorites", {

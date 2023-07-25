@@ -125,7 +125,11 @@ const Dashboard = () => {
               <p>No images found</p>
             ) : (
               filteredImages.map((imageData) => (
-                <ImageCard key={imageData.id} imageData={imageData} />
+                <ImageCard
+                  key={imageData.id}
+                  imageData={imageData}
+                  onRemove={() => {}}
+                />
               ))
             )}
           </Card>
