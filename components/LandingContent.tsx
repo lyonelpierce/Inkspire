@@ -49,7 +49,7 @@ export const LandingContent = () => {
           ? Array.from({ length: 8 }).map((_, index) => (
               <SkeletonDark key={index} />
             ))
-          : images.map((image) => (
+          : images.slice(0, 8).map((image) => (
               <Card
                 key={image.id}
                 className="bg-black/0 border-none relative rounded-lg overflow-hidden group hover:shadow-lg transition duration-300 ease-in-out cursor-pointer"
