@@ -14,5 +14,5 @@ export async function GET() {
     (user) => !subscriberIds.includes(user)
   );
 
-  return NextResponse.json(usersNotInSubscribers);
+  return NextResponse.json(subscribers);
 }
