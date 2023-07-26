@@ -104,7 +104,6 @@ const Gallery = () => {
             {images.length === 0 ? (
               <div className="flex flex-col items-center p-5 gap-3">
                 <p className="font-medium text-white">No generations found.</p>
-
                 <Button
                   variant="default"
                   className="w-fit"
@@ -142,7 +141,7 @@ const Gallery = () => {
               </Badge>
             )}
           </div>
-          {isPro && privateImages.length > 0 && (
+          {isPro && privateImages.length > 0 ? (
             <Card className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-5 p-3 bg-[#171717] border-0 p-5">
               {showImages
                 ? privateImages.map((imageData) => (
@@ -155,6 +154,35 @@ const Gallery = () => {
                 : Array.from({ length: privateImages.length }).map(
                     (_, index) => <SkeletonDark key={index} />
                   )}
+            </Card>
+          ) : (
+            <Card className="bg-[#171717] border-0 mt-5 p-5 flex items-center justify-center">
+              {privateImages.length === 0 ? (
+                <div className="flex flex-col items-center p-5 gap-3">
+                  <p className="font-medium text-white">
+                    No private generations found.
+                  </p>
+                  <Button
+                    variant="default"
+                    className="w-fit"
+                    onClick={() => router.push("/generator")}
+                  >
+                    Generate
+                  </Button>
+                </div>
+              ) : !showImages ? (
+                Array.from({ length: privateImages.length }).map((_, index) => (
+                  <SkeletonDark key={index} />
+                ))
+              ) : (
+                privateImages.map((imageData) => (
+                  <ImageCard
+                    key={imageData.id}
+                    imageData={imageData}
+                    onRemove={() => {}}
+                  />
+                ))
+              )}
             </Card>
           )}
         </div>
