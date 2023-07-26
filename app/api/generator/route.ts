@@ -6,61 +6,52 @@ import { checkSubscription } from "@/lib/subscription";
 import { getApiLimitCount } from "@/lib/api-limit";
 import { MAX_PRO_COUNTS } from "@/constants";
 
-const styleOptions: Record<string, { modelId: string; defaultPrompt: string }> =
-  {
-    watercolor: {
-      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
-      defaultPrompt: "using watercolor tattoo style, no background",
-    },
-    minimalist: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "minimalist tattoo style, line art",
-    },
-    geometric: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "line art, geometric tattoo style",
-    },
-    traditional: {
-      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
-      defaultPrompt: "using traditional tattoo style, no background",
-    },
-    surrealism: {
-      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
-      defaultPrompt: "using surrealism tattoo style, no background",
-    },
-    realism: {
-      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
-      defaultPrompt: "using realism tattoo style, no background",
-    },
-    anime: {
-      modelId: "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      defaultPrompt: "using anime tattoo style, no background",
-    },
-    blackandgrey: {
-      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
-      defaultPrompt: "using black and grey tattoo style, no background",
-    },
-    newschool: {
-      modelId: "ac614f96-1082-45bf-be9d-757f2d31c174",
-      defaultPrompt: "using new school tattoo style, no background",
-    },
-    dotwork: {
-      modelId: "bd4ec11e-fd1b-46c4-a159-ef0b48acfcd8",
-      defaultPrompt: "dotwork tattoo style",
-    },
-    tribal: {
-      modelId: "d3e5f41d-0c37-4542-a9b7-3ac04ff74cfe",
-      defaultPrompt: "tribal style, tattoo style, black",
-    },
-    japanese: {
-      modelId: "b63f7119-31dc-4540-969b-2a9df997e173",
-      defaultPrompt: "using japanese tattoo style, no background",
-    },
-    sketch: {
-      modelId: "e6166dfd-9623-4a98-83ad-4decc38785b1",
-      defaultPrompt: "Sketch tattoo",
-    },
-  };
+const styleOptions: Record<string, { defaultPrompt: string }> = {
+  watercolor: {
+    defaultPrompt: "using watercolor tattoo style, colorful",
+  },
+  minimalist: {
+    defaultPrompt: "minimalist tattoo style, line art",
+  },
+  geometric: {
+    defaultPrompt:
+      "line art, geometry tattoo style, straight lines only, design with shapes, shapes around",
+  },
+  traditional: {
+    defaultPrompt: "using traditional tattoo style",
+  },
+  surrealism: {
+    defaultPrompt: "using surrealism tattoo style, double exposure",
+  },
+  realism: {
+    defaultPrompt: "using realism tattoo style, realistic",
+  },
+  anime: {
+    defaultPrompt: "illustrations, anime style, vector art, 2 arms only",
+  },
+  blackandgrey: {
+    defaultPrompt:
+      "using black and grey tattoo style, grayscale, black and white, monochrome, b/w, illustration",
+  },
+  newschool: {
+    defaultPrompt: "using new school tattoo style, cartoon style",
+  },
+  dotwork: {
+    defaultPrompt:
+      "dotwork tattoo style, black and white, monochrome, b/w, bold, dots only, design with dots, line art",
+  },
+  tribal: {
+    defaultPrompt:
+      "tribal style, tattoo style, black only, bold lines, line art, illustration, lines, deep black, bold black, black lines, invert colors",
+  },
+  japanese: {
+    defaultPrompt: "using japanese tattoo style",
+  },
+  sketch: {
+    defaultPrompt:
+      "sketch tattoo, sketch, drawing, line art, outline, b/n, black and white",
+  },
+};
 
 const calculateTokens = (amount: string, resolution: string): number => {
   const imagesCount = parseInt(amount, 10);
@@ -87,8 +78,8 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!process.env.LEONARDO_SECRET) {
-      throw new Error("LEONARDO_SECRET is not defined.");
+    if (!process.env.URL_SECRET) {
+      throw new Error("URL_SECRET is not defined.");
     }
 
     if (!prompt) {
@@ -125,16 +116,23 @@ export async function POST(req: Request) {
       }
     }
 
+    const url = process.env.URL_GENERATIONS;
+
     const postOptions = {
       method: "POST",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
-        authorization: process.env.LEONARDO_SECRET,
+        authorization: process.env.URL_SECRET,
       },
       body: JSON.stringify({
-        prompt: prompt + ", " + styleOptions[style].defaultPrompt,
-        modelId: styleOptions[style].modelId,
+        prompt:
+          prompt +
+          ". " +
+          styleOptions[style].defaultPrompt +
+          ", " +
+          process.env.PROMPT_MAGIC,
+        modelId: process.env.MAIN_MODEL,
         sd_version: "v2",
         num_images: parseInt(amount, 10),
         width: parseInt(resolution, 10),
@@ -147,14 +145,11 @@ export async function POST(req: Request) {
       method: "GET",
       headers: {
         accept: "application/json",
-        authorization: process.env.LEONARDO_SECRET,
+        authorization: process.env.URL_SECRET,
       },
     };
 
-    const response = await fetch(
-      "https://cloud.leonardo.ai/api/rest/v1/generations",
-      postOptions
-    );
+    const response = await fetch(`${process.env.URL_GENERATIONS}`, postOptions);
 
     if (response.ok) {
       const {
@@ -166,7 +161,7 @@ export async function POST(req: Request) {
         await new Promise((resolve) => setTimeout(resolve, 5000));
 
         const aiImages = await fetch(
-          `https://cloud.leonardo.ai/api/rest/v1/generations/${generationId}`,
+          `${process.env.URL_GENERATIONS}/${generationId}`,
           getOptions
         );
 
