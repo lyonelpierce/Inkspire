@@ -11,6 +11,7 @@ import Image from "next/image";
 export const ImageModal = () => {
   const imageModal = useImageModal();
   const { userId } = useAuth();
+  const { isSignedIn } = useAuth();
 
   const [isOwn, setIsOwn] = useState(false);
   const { imageUrl, imagePrompt, imageStyle, username, imageId, ownerId } =
@@ -78,58 +79,63 @@ export const ImageModal = () => {
           src={imageUrl}
           className="rounded-lg"
         />
-        <div className="md:w-lg p-3 flex flex-col gap-5 w-full md:w-3/5 mt-5 md:mt-0">
-          {username && (
-            <div className="font-semibold text-gray-300 flex items-center gap-2">
-              <div className="bg-[#6653e0] rounded-full w-8 h-8 flex items-center justify-center text-white">
-                {firstLetter}
+        {isSignedIn && (
+          <div className="md:w-lg p-3 flex flex-col gap-5 w-full md:w-3/5 mt-5 md:mt-0">
+            {username && (
+              <div className="font-semibold text-gray-300 flex items-center gap-2">
+                <div className="bg-[#6653e0] rounded-full w-8 h-8 flex items-center justify-center text-white">
+                  {firstLetter}
+                </div>
+                {username}
               </div>
-              {username}
-            </div>
-          )}
-          <div className="bg-[#202020] rounded-lg p-3">
-            <div className="flex justify-between items-center mb-2">
-              <p className="font-semibold text-sm text-white">Prompt:</p>
-              <Button
-                onClick={handleCopyPrompt}
-                className="rounded-lg h-15 flex gap-2 bg-[#171717] border-0 text-white hover:bg-white hover:text-black"
-                variant="outline"
-              >
-                <Copy size={10} />
-                <span className="text-xs font-medium">Copy prompt</span>
-              </Button>
-            </div>
-            <p className="bg-[#171717] rounded-lg p-3 text-sm text-white">
-              {imagePrompt}
-            </p>
-          </div>
-          <div className="bg-[#202020] rounded-lg p-3">
-            <p className="font-semibold text-white text-sm mb-2">Style:</p>
-            <p className="bg-[#171717] rounded-lg p-3 text-sm text-white">
-              {imageStyle}
-            </p>
-          </div>
-          <div className="flex justify-between gap-2">
-            <Button
-              className={cn("gap-2 font-semibold", isOwn ? "w-2/3" : "w-full")}
-              onClick={handleDownload}
-            >
-              <Download />
-              Download
-            </Button>
-            {isOwn && (
-              <Button
-                className="gap-2 font-semibold bg-red-500 hover:bg-red-600 w-1/3"
-                onClick={() => {
-                  handleDelete(imageId);
-                }}
-              >
-                <Trash2 />
-                Delete
-              </Button>
             )}
+            <div className="bg-[#202020] rounded-lg p-3">
+              <div className="flex justify-between items-center mb-2">
+                <p className="font-semibold text-sm text-white">Prompt:</p>
+                <Button
+                  onClick={handleCopyPrompt}
+                  className="rounded-lg h-15 flex gap-2 bg-[#171717] border-0 text-white hover:bg-white hover:text-black"
+                  variant="outline"
+                >
+                  <Copy size={10} />
+                  <span className="text-xs font-medium">Copy prompt</span>
+                </Button>
+              </div>
+              <p className="bg-[#171717] rounded-lg p-3 text-sm text-white">
+                {imagePrompt}
+              </p>
+            </div>
+            <div className="bg-[#202020] rounded-lg p-3">
+              <p className="font-semibold text-white text-sm mb-2">Style:</p>
+              <p className="bg-[#171717] rounded-lg p-3 text-sm text-white">
+                {imageStyle}
+              </p>
+            </div>
+            <div className="flex justify-between gap-2">
+              <Button
+                className={cn(
+                  "gap-2 font-semibold",
+                  isOwn ? "w-2/3" : "w-full"
+                )}
+                onClick={handleDownload}
+              >
+                <Download />
+                Download
+              </Button>
+              {isOwn && (
+                <Button
+                  className="gap-2 font-semibold bg-red-500 hover:bg-red-600 w-1/3"
+                  onClick={() => {
+                    handleDelete(imageId);
+                  }}
+                >
+                  <Trash2 />
+                  Delete
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </DialogContent>
     </Dialog>
   );

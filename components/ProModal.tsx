@@ -9,17 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { Badge } from "@/components/ui/badge";
-import {
-  PenTool,
-  ImageIcon,
-  Check,
-  Zap,
-  GalleryHorizontalEnd,
-  Scaling,
-  MinusCircle,
-  ImageMinus,
-  Clock,
-} from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

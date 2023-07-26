@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import SkeletonDark from "@/components/SkeletonDark";
+import { useImageModal } from "@/hooks/use-image-modal";
 
 interface ImageData {
   id: string;
@@ -18,6 +19,7 @@ export const LandingContent = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [showImages, setShowImages] = useState(false);
+  const imageModal = useImageModal();
 
   const getImages = async () => {
     try {
@@ -38,6 +40,22 @@ export const LandingContent = () => {
   useEffect(() => {
     getImages();
   }, []);
+
+  const handleOpen = (
+    imageUrl: string,
+    imagePrompt: string,
+    imageStyle: string,
+    ownerId: string
+  ) => {
+    console.log("open");
+    useImageModal.setState({
+      imageUrl,
+      imagePrompt,
+      imageStyle,
+      ownerId,
+    });
+    imageModal.onOpen();
+  };
 
   return (
     <div className="px-10 pb-20">
@@ -62,7 +80,15 @@ export const LandingContent = () => {
                   height={512}
                   src={image.imageUrl}
                   alt="Generated"
-                  className="rounded-lg hover:shadow-xl transition duration-200 ease-in-out cursor-pointer "
+                  className="rounded-lg hover:shadow-xl transition duration-200 ease-in-out cursor-pointer"
+                  onClick={() =>
+                    handleOpen(
+                      image.imageUrl,
+                      image.imagePrompt,
+                      image.imageStyle,
+                      image.id
+                    )
+                  }
                 />
               </Card>
             ))}

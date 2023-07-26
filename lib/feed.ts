@@ -45,3 +45,12 @@ export const getFeed = async () => {
     return new NextResponse("Internal error", { status: 500 });
   }
 };
+
+export const getHomeFeed = async () => {
+  const feed = await prismadb.userGallery.findMany({
+    where: { imageStatus: true },
+    orderBy: { createdAt: "desc" },
+    take: 8,
+  });
+  return feed;
+};

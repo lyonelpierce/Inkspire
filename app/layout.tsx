@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ModalProvider } from "@/components/ModalProvider";
 import { CrispProvider } from "@/components/CrispProvider";
+import { ImageModalProvider } from "@/components/ImageModalProvider";
 
 import { dark } from "@clerk/themes";
 
@@ -28,6 +29,8 @@ export default function RootLayout({
       <html lang="en">
         <CrispProvider />
         <body className={`bg-black ${inter.className}`}>
+          <ImageModalProvider />
+
           <ModalProvider />
           {children}
         </body>

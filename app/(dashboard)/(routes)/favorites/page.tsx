@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 import { Heading } from "@/components/Heading";
-import { styleOptions } from "../../../../constants";
 import { Button } from "@/components/ui/button";
 import ImageCard from "@/components/GalleryCard";
 import SkeletonDark from "@/components/SkeletonDark";
