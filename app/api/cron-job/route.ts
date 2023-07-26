@@ -6,13 +6,11 @@ export async function GET() {
   const users = await getUsers();
   const subscribers = await getSubscribers();
 
-  console.log("Users:", users, "Subscribers:", subscribers);
+  const subscriberUserIds = subscribers.map((subscriber) => subscriber.userId);
 
-  const subscriberIds = subscribers.map((subscriber) => subscriber);
-
-  const usersNotInSubscribers = users.filter(
-    (user) => !subscriberIds.includes(user)
+  const nonSubscriber = users.find(
+    (user) => !subscriberUserIds.includes(user.userId)
   );
 
-  return NextResponse.json(subscribers);
+  return NextResponse.json(nonSubscriber);
 }
