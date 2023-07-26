@@ -41,4 +41,5 @@ export const getSubscribers = async () => {
       userId: true,
     },
   });
+  return subscribers;
 };
