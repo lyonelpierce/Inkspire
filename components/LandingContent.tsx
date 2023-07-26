@@ -26,8 +26,8 @@ export const LandingContent = () => {
 
       setImages(data);
       setTimeout(() => {
-        setLoading(false); // Set loading to false after 1 second
-        setShowImages(true); // Show the actual images after 1 second
+        setLoading(false);
+        setShowImages(true);
       }, 1000);
     } catch (error) {
       console.error("Error fetching images:", error);
