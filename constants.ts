@@ -1,3 +1,12 @@
+import {
+  PenTool,
+  ImageIcon,
+  GalleryHorizontalEnd,
+  Scaling,
+  ImagePlus,
+  MinusCircle,
+} from "lucide-react";
+
 export const MAX_FREE_COUNTS = 20;
 export const MAX_PRO_COUNTS = 2000;
 
@@ -54,5 +63,86 @@ export const styleOptions = [
   {
     label: "Sketch",
     value: "sketch",
+  },
+];
+
+export const free = [
+  {
+    label: "20 Daily Tokens",
+    icon: PenTool,
+    color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
+  },
+  {
+    label: "Public Generations Only",
+    icon: ImageIcon,
+    color: "text-pink-700",
+    bgColor: "bg-pink-700/10",
+  },
+  {
+    label: "Up to 2 Simultaneous Generations",
+    icon: GalleryHorizontalEnd,
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-500/10",
+  },
+  {
+    label: "512x512 Resolution Only",
+    icon: Scaling,
+    color: "text-orange-700",
+    bgColor: "bg-orange-700/10",
+  },
+];
+
+export const tools = [
+  {
+    label: "2000 Tokens",
+    icon: PenTool,
+    color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
+  },
+  {
+    label: "Public & Private Generations",
+    icon: ImageIcon,
+    color: "text-pink-700",
+    bgColor: "bg-pink-700/10",
+  },
+  {
+    label: "Up to 4 Simultaneous Generations",
+    icon: GalleryHorizontalEnd,
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-500/10",
+  },
+  {
+    label: "Up to 1024x1024 resolution",
+    icon: Scaling,
+    color: "text-orange-700",
+    bgColor: "bg-orange-700/10",
+  },
+];
+
+export const business = [
+  {
+    label: "Unlimited Generations",
+    icon: PenTool,
+    color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
+  },
+  {
+    label: "Image to Image Generations",
+    icon: ImageIcon,
+    color: "text-pink-700",
+    bgColor: "bg-pink-700/10",
+  },
+  {
+    label: "Image Variations",
+    icon: ImagePlus,
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-500/10",
+  },
+  {
+    label: "Negative Prompt",
+    icon: MinusCircle,
+    color: "text-orange-700",
+    bgColor: "bg-orange-700/10",
   },
 ];

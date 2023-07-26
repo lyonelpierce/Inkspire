@@ -24,60 +24,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-
-const tools = [
-  {
-    label: "2000 Tokens",
-    icon: PenTool,
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-  },
-  {
-    label: "Private Generations",
-    icon: ImageIcon,
-    color: "text-pink-700",
-    bgColor: "bg-pink-700/10",
-  },
-  {
-    label: "Up to 4 Multiple Generations",
-    icon: GalleryHorizontalEnd,
-    color: "text-yellow-500",
-    bgColor: "bg-yellow-500/10",
-  },
-  {
-    label: "Up to 1024x1024 resolution",
-    icon: Scaling,
-    color: "text-orange-700",
-    bgColor: "bg-orange-700/10",
-  },
-];
-
-const business = [
-  {
-    label: "Unlimited Generations",
-    icon: PenTool,
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-  },
-  {
-    label: "Generations from an Image",
-    icon: ImageIcon,
-    color: "text-pink-700",
-    bgColor: "bg-pink-700/10",
-  },
-  {
-    label: "Background Removal",
-    icon: ImageMinus,
-    color: "text-yellow-500",
-    bgColor: "bg-yellow-500/10",
-  },
-  {
-    label: "Negative Prompt",
-    icon: MinusCircle,
-    color: "text-orange-700",
-    bgColor: "bg-orange-700/10",
-  },
-];
+import { tools, business } from "../constants";
 
 export const ProModal = () => {
   const proModal = useProModal();
@@ -209,11 +156,7 @@ export const ProModal = () => {
                   </div>
                   <div className="font-semibold text-sm">{tool.label}</div>
                 </div>
-                {tool.label === "Background Removal" ? (
-                  <Clock className="text-primary w-5 h-5" />
-                ) : (
-                  <Check className="text-primary w-5 h-5" />
-                )}
+                <Check className="text-primary w-5 h-5" />
               </Card>
             ))}
             <DialogFooter>

@@ -1,6 +1,7 @@
 import { LandingNavbar } from "@/components/LandingNavbar";
 import { LandingHero } from "@/components/LandingHero";
 import { LandingContent } from "@/components/LandingContent";
+import { LandingPricing } from "@/components/LandingPricing";
 
 const LandingPage = () => {
   return (
@@ -8,6 +9,7 @@ const LandingPage = () => {
       <LandingNavbar />
       <LandingHero />
       <LandingContent />
+      <LandingPricing />
     </div>
   );
 };

@@ -42,7 +42,10 @@ export const LandingContent = () => {
   return (
     <div className="px-10 pb-20">
       <h2 className="text-center text-4xl text-white font-semibold mb-10">
-        Recent Generations
+        <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+          Recent{" "}
+        </span>
+        Generations
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {loading && !showImages
