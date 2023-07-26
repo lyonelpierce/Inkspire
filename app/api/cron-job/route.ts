@@ -6,5 +6,5 @@ export async function GET() {
   const users = await getUsers();
   const subscribers = await getSubscribers();
 
-  return new NextResponse("hello");
+  return NextResponse.json(users);
 }
