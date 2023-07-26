@@ -19,4 +19,6 @@ export async function GET() {
       console.log("Reset!");
     });
   }
+
+  return new NextResponse("OK", { status: 200 });
 }
