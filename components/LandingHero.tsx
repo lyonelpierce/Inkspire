@@ -24,7 +24,7 @@ export const LandingHero = () => {
         </div>
       </div>
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        Create tattoos a 1000x times faster using the power of AI.
+        Generate tattoo ideas a 1000x times faster using the power of AI.
       </div>
       <div>
         <Link

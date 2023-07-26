@@ -3,31 +3,22 @@ import { useImageModal } from "@/hooks/use-image-modal";
 import { Button } from "@/components/ui/button";
 import { Download, Copy, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 export const ImageModal = () => {
   const imageModal = useImageModal();
+  const { userId } = useAuth();
+
   const [isOwn, setIsOwn] = useState(false);
-  const { imageUrl, imagePrompt, imageStyle, username, imageId } =
+  const { imageUrl, imagePrompt, imageStyle, username, imageId, ownerId } =
     useImageModal();
 
   useEffect(() => {
-    const handleDelete = async () => {
-      try {
-        const response = await fetch("/api/gallery");
-        const data = await response.json();
-
-        const isPresent = data.some((item: any) => item.imageUrl === imageUrl);
-        setIsOwn(isPresent);
-      } catch (error) {
-        console.error("Error deleting image:", error);
-      }
-    };
-
-    handleDelete();
-  }, [imageUrl]);
+    setIsOwn(ownerId === userId);
+  }, [ownerId, userId]);
 
   const handleDownload = async () => {
     try {

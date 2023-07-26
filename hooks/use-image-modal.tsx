@@ -6,6 +6,7 @@ interface useImageModal {
   imagePrompt: string;
   imageStyle: string;
   username: string;
+  ownerId: string;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
@@ -17,6 +18,7 @@ export const useImageModal = create<useImageModal>((set) => ({
   imagePrompt: "",
   imageStyle: "",
   username: "",
+  ownerId: "",
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),

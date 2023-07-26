@@ -72,7 +72,8 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
   };
 
   const handleOpen = () => {
-    const { imageUrl, imagePrompt, imageStyle, username, id } = imageData;
+    const { imageUrl, imagePrompt, imageStyle, username, id, userId } =
+      imageData;
 
     useImageModal.setState({
       imageUrl,
@@ -80,6 +81,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ imageData, onRemove }) => {
       imageStyle,
       username,
       imageId: id,
+      ownerId: userId,
     });
     imageModal.onOpen();
   };
