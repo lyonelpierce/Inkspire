@@ -20,7 +20,10 @@ export const LandingPricing = () => {
         <Dialog>
           <Card className="p-7 space-y-3 bg-[#202020] border-0 w-1/3">
             <DialogHeader>
-              <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
+              <DialogTitle
+                className="flex justify-center items-center flex-col gap-y-4 pb-2"
+                id="proCard"
+              >
                 <div className="flex items-center gap-x-2 font-bold py-1 text-white">
                   <Badge variant="default" className="uppercase text-sm py-1">
                     Free
@@ -49,7 +52,10 @@ export const LandingPricing = () => {
           </Card>
           <Card className="p-7 space-y-3 bg-[#202020] border-0 w-1/3 shadow-2xl shadow-violet-500/50">
             <DialogHeader>
-              <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
+              <DialogTitle
+                className="flex justify-center items-center flex-col gap-y-4 pb-2"
+                id="proCard"
+              >
                 <div className="flex items-center gap-x-2 font-bold py-1 text-white">
                   <Badge variant="premium" className="uppercase text-sm py-1">
                     Pro
@@ -80,7 +86,10 @@ export const LandingPricing = () => {
           </Card>
           <Card className="p-7 space-y-3 bg-[#202020] border-0 w-1/3">
             <DialogHeader>
-              <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
+              <DialogTitle
+                className="flex justify-center items-center flex-col gap-y-4 pb-2"
+                id="businessCard"
+              >
                 <div className="flex items-center gap-x-2 font-bold py-1 text-white">
                   <Badge variant="premium" className="uppercase text-sm py-1">
                     Business
