@@ -428,7 +428,7 @@ const Generator = () => {
                     className="w-full"
                   >
                     <Share className="h-4 w-4 mr-2" />
-                    Share & Save
+                    Public Save
                   </Button>
                   <Button
                     onClick={() => {
@@ -447,7 +447,7 @@ const Generator = () => {
                     className="w-full bg-[#202020] border-0 text-white"
                   >
                     <Save className="h-4 w-4 mr-2" />
-                    Save
+                    Private Save
                     {isPro ? null : (
                       <Badge
                         variant="premium"
