@@ -11,7 +11,7 @@ export const LandingHero = () => {
 
   return (
     <div className="text-white font-bold py-28 text-center space-y-5">
-      <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">
+      <div className="text-4xl sm:text-4xl md:text-6xl lg:text-7xl space-y-5 font-bold">
         <h1>The Best AI Tool for</h1>
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 text-6xl">
           <TypewriterComponent
@@ -28,12 +28,12 @@ export const LandingHero = () => {
       </div>
       <div>
         <Link
-          href={isSignedIn ? "/explore" : "/sign-up"}
+          href={isSignedIn ? "/generator" : "/sign-up"}
           className="flex justify-center"
         >
           <Button
             variant="premium"
-            className="md:text-lg p-4 md:p-6 rounded-full font-medium mt-12 flex justify-center items-center relative overflow-hidden group"
+            className="md:text-lg p-4 md:p-6 rounded-lg font-medium mt-12 flex justify-center items-center relative overflow-hidden group"
           >
             Start Generating For Free
             <ArrowRight />

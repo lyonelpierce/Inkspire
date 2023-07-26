@@ -18,8 +18,14 @@ export const LandingNavbar = () => {
         <PenTool height={35} width={35} />
         <h1 className={cn("text-2xl font-bold", font.className)}>Inkspire</h1>
       </Link>
-      <div className="flex items-center gap-x-2">
-        <Link href={isSignedIn ? "/explore" : "/sign-up"}>
+      <div className="flex items-center gap-x-10">
+        <Link
+          href={isSignedIn ? "/explore" : "/sign-up"}
+          className="text-white hover:text-white/80 font-semibold"
+        >
+          Explore
+        </Link>
+        <Link href={isSignedIn ? "/generator" : "/sign-up"}>
           <Button variant="premium" className="rounded-lg">
             Get Started
           </Button>

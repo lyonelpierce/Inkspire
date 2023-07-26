@@ -8,7 +8,7 @@ import { MAX_PRO_COUNTS } from "@/constants";
 
 const styleOptions: Record<string, { defaultPrompt: string }> = {
   watercolor: {
-    defaultPrompt: "using watercolor tattoo style, colorful",
+    defaultPrompt: "using watercolor tattoo style, colorful, illustration",
   },
   minimalist: {
     defaultPrompt: "minimalist tattoo style, line art",
