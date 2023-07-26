@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const pathname = url.pathname;
 
-  if (pathname === "/api/explore") {
+  if (pathname === "/") {
     try {
       const homeFeed = await getHomeFeed();
       return NextResponse.json(homeFeed);

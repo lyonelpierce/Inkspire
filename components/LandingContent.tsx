@@ -47,7 +47,6 @@ export const LandingContent = () => {
     imageStyle: string,
     ownerId: string
   ) => {
-    console.log("open");
     useImageModal.setState({
       imageUrl,
       imagePrompt,
