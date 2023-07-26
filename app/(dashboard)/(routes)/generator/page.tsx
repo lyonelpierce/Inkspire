@@ -96,7 +96,7 @@ const Generator = () => {
 
   const isOptionDisabledForNonPro = (value: string) => {
     if (!isPro) {
-      if (value === "2" || value === "3" || value === "4") {
+      if (value === "3" || value === "4") {
         return true;
       }
 
