@@ -18,7 +18,7 @@ export const LandingPricing = () => {
       </h2>
       <div className="flex flex-col gap-5 items-center justify-center sm:flex-row sm:justify-center">
         <Dialog>
-          <Card className="p-7 space-y-3 bg-[#202020] border-0 w-1/3">
+          <Card className="p-7 space-y-3 bg-[#202020] border-0 md:w-1/3">
             <DialogHeader>
               <DialogTitle
                 className="flex justify-center items-center flex-col gap-y-4 pb-2"
@@ -49,7 +49,7 @@ export const LandingPricing = () => {
               </Card>
             ))}
           </Card>
-          <Card className="p-7 space-y-3 bg-[#202020] border-0 w-1/3 shadow-2xl shadow-violet-500/50">
+          <Card className="p-7 space-y-3 bg-[#202020] border-0 md:w-1/3 shadow-2xl shadow-violet-500/50">
             <DialogHeader>
               <DialogTitle
                 className="flex justify-center items-center flex-col gap-y-4 pb-2"
@@ -83,7 +83,7 @@ export const LandingPricing = () => {
               </Card>
             ))}
           </Card>
-          <Card className="p-7 space-y-3 bg-[#202020] border-0 w-1/3">
+          <Card className="p-7 space-y-3 bg-[#202020] border-0 md:w-1/3">
             <DialogHeader>
               <DialogTitle
                 className="flex justify-center items-center flex-col gap-y-4 pb-2"

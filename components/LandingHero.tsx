@@ -13,7 +13,7 @@ export const LandingHero = () => {
     <div className="text-white font-bold py-28 text-center space-y-5">
       <div className="text-4xl sm:text-4xl md:text-6xl lg:text-7xl space-y-5 font-bold ">
         <h1>The Best AI Tool for</h1>
-        <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 text-6xl text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+        <div className="h-28 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 text-6xl text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
           <TypewriterComponent
             options={{
               strings: ["Tattoo Artists.", "Tattoo Enthusiasts."],
@@ -24,7 +24,8 @@ export const LandingHero = () => {
         </div>
       </div>
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        Generate tattoo ideas a 1000x times faster using the power of AI.
+        Generate tattoo ideas 1000x times faster.
+        <p>with the power of AI</p>
       </div>
       <div>
         <Link
