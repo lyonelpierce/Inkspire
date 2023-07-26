@@ -3,7 +3,7 @@ import {
   ImageIcon,
   GalleryHorizontalEnd,
   Scaling,
-  ImagePlus,
+  ImageMinus,
   MinusCircle,
 } from "lucide-react";
 
@@ -135,13 +135,13 @@ export const business = [
   },
   {
     label: "Image Variations",
-    icon: ImagePlus,
+    icon: GalleryHorizontalEnd,
     color: "text-yellow-500",
     bgColor: "bg-yellow-500/10",
   },
   {
     label: "Negative Prompt",
-    icon: MinusCircle,
+    icon: ImageMinus,
     color: "text-orange-700",
     bgColor: "bg-orange-700/10",
   },

@@ -138,6 +138,7 @@ export async function POST(req: Request) {
         width: parseInt(resolution, 10),
         height: parseInt(resolution, 10),
         promptMagic: true,
+        public: false,
       }),
     };
 
