@@ -34,3 +34,11 @@ export const checkSubscription = async () => {
 
   return !!isValid;
 };
+
+export const getSubscribers = async () => {
+  const subscribers = await prismadb.userSubscription.findMany({
+    select: {
+      userId: true,
+    },
+  });
+};

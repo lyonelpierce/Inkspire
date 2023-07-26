@@ -139,6 +139,7 @@ export async function POST(req: Request) {
         num_images: parseInt(amount, 10),
         width: parseInt(resolution, 10),
         height: parseInt(resolution, 10),
+        promptMagic: true,
       }),
     };
 

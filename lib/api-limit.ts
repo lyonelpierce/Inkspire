@@ -95,3 +95,13 @@ export const resetApiLimit = async (userId: string) => {
     },
   });
 };
+
+export const getUsers = async () => {
+  const users = await prismadb.userApiLimit.findMany({
+    select: {
+      userId: true,
+    },
+  });
+
+  return users;
+};
