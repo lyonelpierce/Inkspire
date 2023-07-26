@@ -31,7 +31,6 @@ export const LandingPricing = () => {
                 </div>
                 <div className="text-center">
                   <p className="font-bold text-3xl text-violet-500">Free</p>
-                  <p className="text-sm font-semibold text-gray-400">ex. tax</p>
                 </div>
               </DialogTitle>
             </DialogHeader>
@@ -65,6 +64,7 @@ export const LandingPricing = () => {
                   <p className="font-bold text-3xl text-violet-500">
                     $5 / month
                   </p>
+                  <p className="text-sm font-semibold text-gray-400">ex. tax</p>
                 </div>
               </DialogTitle>
             </DialogHeader>
@@ -95,8 +95,9 @@ export const LandingPricing = () => {
                   </Badge>
                 </div>
                 <div className="text-center">
-                  <p className="font-bold text-3xl text-violet-500">Comming</p>
-                  <p className="text-sm font-semibold text-gray-400">Soon!</p>
+                  <p className="font-bold text-3xl text-violet-500">
+                    Comming Soon!
+                  </p>
                 </div>
               </DialogTitle>
             </DialogHeader>
