@@ -19,25 +19,25 @@ export const LandingFaq = () => {
         <Accordion type="single" collapsible className="w-full text-white">
           <AccordionItem value="item-1">
             <AccordionTrigger aria-controls="q1" id="t1">
-              What are tokens, and how do they work?
+              What are credits, and how do they work?
             </AccordionTrigger>
             <AccordionContent id="q1" aria-labelledby="t1">
-              Tokens are used to generate images on the platform. Two image
-              tokens are approximately worth one standard 512x512 image
+              Credits are used to generate images on the platform. Two image
+              credits are approximately worth one standard 512x512 image
               generated at 30 steps. This means that if you have 20 image
-              tokens, you can generate 10 images on the platform.
+              credits, you can generate 10 images on the platform.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
             <AccordionTrigger aria-controls="q2" id="t2">
-              How often do tokens reset?
+              How often do credits reset?
             </AccordionTrigger>
             <AccordionContent id="q2" aria-labelledby="t2">
               <p>
-                If you are using the free plan, a limited number of tokens will
+                If you are using the free plan, a limited number of credits will
                 be allocated to you each day, and will reset daily at midnight.
                 This means that you can generate a limited number of images each
-                day, based on the number of tokens allocated to you. Free tier
+                day, based on the number of credits allocated to you. Free tier
                 users are also limited to a lower number of simultaneous
                 generations, and 512x512 resolution.
               </p>
@@ -46,7 +46,7 @@ export const LandingFaq = () => {
                 If you are on a paid plan of the platform, you will have access
                 to your full monthly token allowance at any time, and your
                 allowance will reset each month. This means that you can use
-                your tokens at your own pace and have access to the platform’s
+                your credits at your own pace and have access to the platform’s
                 premium features, throughout the month.
               </p>
             </AccordionContent>
@@ -68,14 +68,14 @@ export const LandingFaq = () => {
           </AccordionItem>
           <AccordionItem value="item-4">
             <AccordionTrigger aria-controls="q4" id="t4">
-              What happens if I run out of tokens in my paid plan?
+              What happens if I run out of credits in my paid plan?
             </AccordionTrigger>
             <AccordionContent id="q4" aria-labelledby="t4">
               <p>
-                You can always wait for the end of the month for the tokens to
+                You can always wait for the end of the month for the credits to
                 replenish, or upgrade to the next plan if you are running out of
-                tokens (upgrades coming soon). Contact us if you are looking for
-                a custom plan.
+                credits (upgrades coming soon). Contact us if you are looking
+                for a custom plan.
               </p>
             </AccordionContent>
           </AccordionItem>

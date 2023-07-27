@@ -68,7 +68,7 @@ export const styleOptions = [
 
 export const free = [
   {
-    label: "20 Daily Tokens",
+    label: "20 Daily Credits",
     icon: PenTool,
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",
@@ -95,7 +95,7 @@ export const free = [
 
 export const tools = [
   {
-    label: "2000 Tokens",
+    label: "2000 Monthly Credits",
     icon: PenTool,
     color: "text-violet-500",
     bgColor: "bg-violet-500/10",

@@ -37,7 +37,7 @@ export const FreeCounter = ({
                 Pro
               </Badge>
               <p>
-                {apiLimitCount} / {MAX_PRO_COUNTS} Used Tokens
+                {apiLimitCount} / {MAX_PRO_COUNTS} Used Credits
               </p>
               <Progress
                 className="h-3"
@@ -55,7 +55,7 @@ export const FreeCounter = ({
         <CardContent className="py-6">
           <div className="text-center text-sm text-white mb-4 space-y-2">
             <p>
-              {apiLimitCount} / {MAX_FREE_COUNTS} Used Tokens
+              {apiLimitCount} / {MAX_FREE_COUNTS} Used Credits
             </p>
             <Progress
               className="h-3"

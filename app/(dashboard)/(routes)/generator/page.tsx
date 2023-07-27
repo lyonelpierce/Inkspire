@@ -375,7 +375,7 @@ const Generator = () => {
                     form.watch("amount"),
                     form.watch("resolution")
                   )}{" "}
-                  tokens
+                  credits
                 </FormLabel>
                 <Button
                   id="submitButton"
