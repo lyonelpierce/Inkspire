@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
-
 import prismadb from "@/lib/prismadb";
+import { resetApiLimit } from "./api-limit";
 
 const DAY_IN_MS = 86_400_000;
 
@@ -16,6 +16,7 @@ export const checkSubscription = async () => {
       userId: userId,
     },
     select: {
+      id: true,
       stripeSubscriptionId: true,
       stripeCurrentPeriodEnd: true,
       stripeCustomerId: true,
@@ -31,6 +32,15 @@ export const checkSubscription = async () => {
     userSubscription.stripePriceId &&
     userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
       Date.now();
+
+  if (!isValid) {
+    await prismadb.userSubscription.delete({
+      where: {
+        id: userSubscription.id,
+      },
+    });
+    await resetApiLimit(userId);
+  }
 
   return !!isValid;
 };
