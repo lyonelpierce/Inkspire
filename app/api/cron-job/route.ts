@@ -19,4 +19,5 @@ export async function GET() {
       console.log("Reset!");
     });
   }
+  return NextResponse.json(nonSubscribers);
 }
