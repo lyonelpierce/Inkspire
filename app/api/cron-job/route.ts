@@ -20,5 +20,9 @@ export async function GET() {
     });
   }
 
-  return new NextResponse("OK", { status: 200 });
+  return NextResponse.json;
+  {
+    ("Cron job ran successfully!");
+    nonSubscribers;
+  }
 }
