@@ -7,7 +7,7 @@ import { LandingFaq } from "@/components/LandingFaq";
 
 const LandingPage = () => {
   return (
-    <div className="h-full ">
+    <div className="h-full">
       <LandingNavbar />
       <LandingHero />
       <LandingContent />
