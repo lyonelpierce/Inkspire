@@ -15,9 +15,7 @@ export const LandingFooter = () => {
   return (
     <nav className="p-4 bg-transparent flex items-center justify-between">
       <div className="text-white flex flex-row items-center justify-center gap-2">
-        <div className="flex flex-col items-center justify-center rounded-full h-12 w-12 bg-[#202020]">
-          <PenTool height={30} width={30} />
-        </div>
+        <PenTool height={30} width={30} />
         <h2 className={cn("text-lg font-bold", font.className)}>Inkspire</h2>
       </div>
       <div className="flex items-center">
