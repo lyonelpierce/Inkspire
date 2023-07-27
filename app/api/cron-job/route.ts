@@ -19,10 +19,4 @@ export async function GET() {
       console.log("Reset!");
     });
   }
-
-  return NextResponse.json;
-  {
-    ("Cron job ran successfully!");
-    nonSubscribers;
-  }
 }
