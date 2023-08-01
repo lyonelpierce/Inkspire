@@ -45,13 +45,17 @@ export async function POST(req: Request) {
       },
     });
 
-    await resetApiLimit(session.metadata.userId);
+    // await resetApiLimit(session.metadata.userId);
   }
 
   if (event.type === "invoice.payment_succeeded") {
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
     );
+
+    if (!session?.metadata?.userId) {
+      return new NextResponse("User id is required", { status: 400 });
+    }
 
     await prismadb.userSubscription.update({
       where: {
@@ -64,6 +68,8 @@ export async function POST(req: Request) {
         ),
       },
     });
+
+    await resetApiLimit(session.metadata.userId);
   }
 
   return new NextResponse(null, { status: 200 });
