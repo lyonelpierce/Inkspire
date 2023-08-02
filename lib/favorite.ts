@@ -74,55 +74,21 @@ const checkFavorite = async (imageId?: any) => {
       where: {
         userId: userId,
       },
+      select: {
+        imageId: true,
+      },
     });
 
-    const userIds = favorites.map((favorite) => favorite.userId);
+    const imageIds = favorites.map((favorite) => favorite.imageId);
 
-    // Fetch user data for all userIds
-    const url = `${CLERK_API_BASE_URL}/users`;
-    const headers = {
-      Authorization: `Bearer ${CLERK_SECRET_KEY}`,
-    };
+    const images = await prismadb.userGallery.findMany({
+      where: {
+        userId: userId,
+        id: { in: imageIds },
+      },
+    });
 
-    const userResponses = await Promise.all(
-      userIds.map((userId) => {
-        const userUrl = `${url}/${userId}`;
-        return fetch(userUrl, { headers });
-      })
-    );
-
-    // Check if all fetch requests were successful
-    for (const response of userResponses) {
-      if (!response.ok) {
-        throw new Error(`Request failed with status: ${response.status}`);
-      }
-    }
-
-    // Parse the JSON data from the responses and extract the usernames
-    const usernames = await Promise.all(
-      userResponses.map((response) => response.json())
-    );
-
-    // Map the usernames back to the favorites
-    const favoriteImages = await Promise.all(
-      favorites.map(async (favorite, index) => {
-        const { imageId } = favorite;
-        const image = await prismadb.userGallery.findUnique({
-          where: {
-            id: imageId,
-          },
-        });
-
-        // Add the corresponding username to the image object
-        const imageWithUsername = {
-          ...image,
-          username: usernames[index].username,
-        };
-        return imageWithUsername;
-      })
-    );
-
-    return favoriteImages;
+    return images;
   }
 };
 
