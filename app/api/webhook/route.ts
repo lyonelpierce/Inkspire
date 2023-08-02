@@ -23,6 +23,7 @@ export async function POST(req: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+  const invoice = event.data.object as Stripe.Invoice;
 
   if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(
@@ -53,23 +54,30 @@ export async function POST(req: Request) {
       session.subscription as string
     );
 
-    if (!session?.metadata?.userId) {
-      return new NextResponse("User id is required", { status: 400 });
-    }
-
-    await prismadb.userSubscription.update({
+    const userSubscription = await prismadb.userSubscription.findUnique({
       where: {
         stripeSubscriptionId: subscription.id,
       },
-      data: {
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
+      select: {
+        userId: true,
       },
     });
 
-    await resetApiLimit(session.metadata.userId);
+    if (userSubscription) {
+      await prismadb.userSubscription.update({
+        where: {
+          stripeSubscriptionId: subscription.id,
+        },
+        data: {
+          stripePriceId: subscription.items.data[0].price.id,
+          stripeCurrentPeriodEnd: new Date(
+            subscription.current_period_end * 1000
+          ),
+        },
+      });
+
+      await resetApiLimit(userSubscription.userId);
+    }
   }
 
   return new NextResponse(null, { status: 200 });
