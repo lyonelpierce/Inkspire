@@ -7,7 +7,7 @@ import { LandingFaq } from "@/components/LandingFaq";
 
 const LandingPage = () => {
   return (
-    <div className="h-full">
+    <div className="flex flex-col h-full gap-5">
       <LandingNavbar />
       <LandingHero />
       <LandingContent />

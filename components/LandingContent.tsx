@@ -80,6 +80,9 @@ export const LandingContent = () => {
                   src={image.imageUrl}
                   alt="Generated"
                   className="rounded-lg hover:shadow-xl transition duration-200 ease-in-out cursor-pointer"
+                />
+                <div
+                  className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100"
                   onClick={() =>
                     handleOpen(
                       image.imageUrl,
@@ -88,7 +91,16 @@ export const LandingContent = () => {
                       image.id
                     )
                   }
-                />
+                >
+                  {/* Black vignette over the image */}
+                  <div className="w-full h-full bg-gradient-to-br from-transparent via-black to-black opacity-60"></div>
+
+                  {/* Text content */}
+                  <div className="absolute bottom-0 left-0 w-full text-white text-sm p-4 group-hover:opacity-100">
+                    <p className="font-semibold">{image.imagePrompt}</p>
+                    <p>{image.imageStyle}</p>
+                  </div>
+                </div>
               </Card>
             ))}
       </div>
