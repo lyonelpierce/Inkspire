@@ -11,7 +11,7 @@ import { dark } from "@clerk/themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Inkspire.ai",
+  title: "Inkspire.ai | AI Tattoo Generator",
   description: "AI Tattoo Generator",
 };
 

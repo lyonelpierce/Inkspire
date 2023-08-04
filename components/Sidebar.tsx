@@ -58,6 +58,9 @@ const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
           <PenTool height={30} width={30} />
           <h1 className={cn("text-2xl font-bold", montserrat.className)}>
             Inkspire
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+              .Ai
+            </span>
           </h1>
         </Link>
         <div className="space-y-1">
