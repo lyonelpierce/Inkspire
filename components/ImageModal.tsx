@@ -5,6 +5,18 @@ import { Download, Copy, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+  EmailIcon,
+  EmailShareButton,
+} from "next-share";
 
 import Image from "next/image";
 
@@ -133,6 +145,35 @@ export const ImageModal = () => {
                   Delete
                 </Button>
               )}
+            </div>
+            <div className="flex flex-row gap-4 justify-center p-5">
+              <EmailShareButton
+                url={imageUrl}
+                subject={imageStyle}
+                body={imagePrompt}
+              >
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+              <FacebookShareButton
+                url={imageUrl}
+                quote={`asd`}
+                hashtag={`#${imageStyle}`}
+              >
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <LinkedinShareButton url={imageUrl}>
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <TwitterShareButton url={imageUrl} title={imagePrompt}>
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                url={imageUrl}
+                title={imagePrompt}
+                separator=":: "
+              >
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
             </div>
           </div>
         )}
