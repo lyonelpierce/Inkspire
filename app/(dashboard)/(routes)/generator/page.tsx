@@ -174,8 +174,8 @@ const Generator = () => {
         title="Tattoo Generation"
         description="Turn your prompt into a tattoo design"
         icon={PenTool}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/30"
+        iconColor="text-white"
+        bgColor="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:shadow-xl hover:shadow-violet-500/50 border-0"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -383,6 +383,7 @@ const Generator = () => {
                   type="submit"
                   disabled={isLoading}
                   size="icon"
+                  variant="premium"
                 >
                   Generate
                 </Button>
