@@ -19,7 +19,7 @@ export const LandingNavbar = () => {
         <h1 className={cn("text-2xl font-bold", font.className)}>
           Inkspire
           <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-            .Ai
+            Ai
           </span>
         </h1>
       </Link>
