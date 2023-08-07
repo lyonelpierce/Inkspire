@@ -2,8 +2,8 @@
 const nextConfig = {
   images: {
     domains: ["googleusercontent.com", "cdn.leonardo.ai"],
-    loader: "custom",
-    loaderFile: "./loader.js",
+    // loader: "custom",
+    // loaderFile: "./loader.js",
   },
 };
 
