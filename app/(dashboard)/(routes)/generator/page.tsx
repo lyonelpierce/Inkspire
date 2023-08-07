@@ -175,7 +175,7 @@ const Generator = () => {
         description="Turn your prompt into a tattoo design"
         icon={PenTool}
         iconColor="text-white"
-        bgColor="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:shadow-xl hover:shadow-violet-500/50 border-0"
+        bgColor="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white border-0"
       />
       <div className="px-4 lg:px-8">
         <div>
