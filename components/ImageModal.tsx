@@ -146,20 +146,25 @@ export const ImageModal = () => {
             </div>
             <div className="flex flex-row gap-4 justify-center p-5">
               <FacebookShareButton
-                url={imageUrl}
-                quote={"imagetest 123"}
+                url={`https://inkspireai.com/_next/image?url=${imageUrl}&w=1080&q=75`}
+                quote={imagePrompt}
                 hashtag={`#${imageStyle}`}
               >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
-              <LinkedinShareButton url={imageUrl}>
+              <LinkedinShareButton
+                url={`https://inkspireai.com/_next/image?url=${imageUrl}&w=1080&q=75`}
+              >
                 <LinkedinIcon size={32} round />
               </LinkedinShareButton>
-              <TwitterShareButton url={imageUrl} title={imagePrompt}>
+              <TwitterShareButton
+                url={`https://inkspireai.com/_next/image?url=${imageUrl}&w=1080&q=75`}
+                title={imagePrompt}
+              >
                 <TwitterIcon size={32} round />
               </TwitterShareButton>
               <WhatsappShareButton
-                url={imageUrl}
+                url={`https://inkspireai.com/_next/image?url=${imageUrl}&w=1080&q=75`}
                 title={imagePrompt}
                 separator=":: "
               >
