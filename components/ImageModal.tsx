@@ -14,8 +14,6 @@ import {
   TwitterShareButton,
   WhatsappIcon,
   WhatsappShareButton,
-  EmailIcon,
-  EmailShareButton,
 } from "next-share";
 
 import Image from "next/image";
@@ -147,16 +145,9 @@ export const ImageModal = () => {
               )}
             </div>
             <div className="flex flex-row gap-4 justify-center p-5">
-              <EmailShareButton
-                url={imageUrl}
-                subject={imageStyle}
-                body={imagePrompt}
-              >
-                <EmailIcon size={32} round />
-              </EmailShareButton>
               <FacebookShareButton
                 url={imageUrl}
-                quote={`asd`}
+                quote={"imagetest 123"}
                 hashtag={`#${imageStyle}`}
               >
                 <FacebookIcon size={32} round />
