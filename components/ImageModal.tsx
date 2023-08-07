@@ -83,7 +83,7 @@ export const ImageModal = () => {
     <Dialog open={imageModal.isOpen} onOpenChange={imageModal.onClose}>
       <DialogContent className="p-5 md:flex bg-[#171717] border-0">
         <Image
-          width={512}
+          width={600}
           height={512}
           alt="Generated"
           src={imageUrl}
