@@ -66,9 +66,13 @@ export const ProModal = () => {
   return (
     <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
       <DialogContent className="bg-[#171717] border-0">
-        <p className="font-bold text-center text-2xl m-5 text-white">
-          Choose a Plan
-        </p>
+        <div className="text-center my-5">
+          <p className="font-bold text-2xl text-white">Choose a Plan</p>
+          <span className="text-white text-sm">
+            It looks like you run out of credits, try again tomorrow or choose a
+            plan!
+          </span>
+        </div>
         <div className="flex flex-col gap-5 items-center justify-center sm:flex-row sm:justify-center">
           {!isPro && (
             <Card className="p-7 space-y-3 bg-[#202020] border-0">
