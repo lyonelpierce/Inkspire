@@ -68,10 +68,10 @@ export const ProModal = () => {
       <DialogContent className="bg-[#171717] border-0">
         <div className="text-center my-5">
           <p className="font-bold text-2xl text-white">Choose a Plan</p>
-          <span className="text-white text-sm">
+          {/* <span className="text-white text-sm">
             It looks like you run out of credits, try again tomorrow or choose a
             plan!
-          </span>
+          </span> */}
         </div>
         <div className="flex flex-col gap-5 items-center justify-center sm:flex-row sm:justify-center">
           {!isPro && (
