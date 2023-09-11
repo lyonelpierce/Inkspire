@@ -2,7 +2,6 @@
 
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
-import { useAuth } from "@clerk/nextjs";
 import { PenTool } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -10,8 +9,6 @@ import { Button } from "@/components/ui/button";
 const font = Montserrat({ weight: "600", subsets: ["latin"] });
 
 export const LandingFooter = () => {
-  const { isSignedIn } = useAuth();
-
   return (
     <nav className="p-4 bg-transparent flex items-center justify-between">
       <div className="text-white flex flex-row items-center justify-center gap-2">
