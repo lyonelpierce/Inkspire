@@ -7,6 +7,7 @@ export default authMiddleware({
     "/api/explore",
     "/api/subscription",
     "/api/cron-job",
+    "/api/listener",
   ],
 });
 
