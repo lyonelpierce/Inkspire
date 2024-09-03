@@ -9,7 +9,10 @@ export async function GET(req: Request) {
 
   if (pathname === "/") {
     try {
+      console.log("hello");
       const homeFeed = await getHomeFeed();
+      console.log(homeFeed);
+
       return NextResponse.json(homeFeed);
     } catch (error) {
       console.log(error);

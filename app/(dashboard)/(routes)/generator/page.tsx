@@ -183,7 +183,7 @@ const Generator = () => {
             <form
               id="generatorForm"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="rounded-lg border w-full p-6 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2 border-0 bg-[#171717] space-y-2"
+              className="rounded-lg w-full p-6 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2 border-0 bg-[#171717] space-y-2"
             >
               <FormField
                 name="prompt"
@@ -413,7 +413,13 @@ const Generator = () => {
                 className="rounded-lg overflow-hidden bg-[#171717] border-0"
               >
                 <div className="relative aspect-square">
-                  <Image height={512} width={512} alt="Generated" src={src} />
+                  <Image
+                    height={512}
+                    width={512}
+                    alt="Generated"
+                    src={src}
+                    className="bg-white"
+                  />
                 </div>
                 <CardFooter className="p-2 gap-2">
                   <Button

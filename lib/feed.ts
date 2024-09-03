@@ -47,10 +47,12 @@ export const getFeed = async () => {
 };
 
 export const getHomeFeed = async () => {
+  console.log("Getting home feed");
   const feed = await prismadb.userGallery.findMany({
     where: { imageStatus: true },
     orderBy: { createdAt: "desc" },
     take: 8,
   });
+  console.log(feed);
   return feed;
 };

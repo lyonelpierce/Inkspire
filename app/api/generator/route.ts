@@ -133,11 +133,17 @@ export async function POST(req: Request) {
           ", " +
           process.env.PROMPT_MAGIC,
         modelId: process.env.MAIN_MODEL,
-        sd_version: "v2",
         num_images: parseInt(amount, 10),
         width: parseInt(resolution, 10),
         height: parseInt(resolution, 10),
         promptMagic: true,
+        transparency: "foreground_only",
+        elements: [
+          {
+            akUUID: "5f3e58d8-7af3-4d5b-92e3-a3d04b9a3414",
+            weight: 0.5,
+          },
+        ],
         public: false,
       }),
     };
