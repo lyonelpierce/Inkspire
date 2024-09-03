@@ -148,43 +148,15 @@ export async function POST(req: Request) {
       }),
     };
 
-    const getOptions = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        authorization: process.env.URL_SECRET,
-      },
-    };
-
     const response = await fetch(`${process.env.URL_GENERATIONS}`, postOptions);
 
-    if (response.ok) {
-      const {
-        sdGenerationJob: { generationId },
-      } = await response.json();
+    if (response.status === 200) {
+      const generationData = await response.json();
 
-      let status = "PENDING";
-      while (status === "PENDING") {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+      const generationId = generationData.sdGenerationJob.generationId;
 
-        const aiImages = await fetch(
-          `${process.env.URL_GENERATIONS}/${generationId}`,
-          getOptions
-        );
-
-        if (aiImages.ok) {
-          const image = await aiImages.json();
-          status = image.generations_by_pk.status;
-          if (status === "COMPLETE") {
-            const imageUrl = image.generations_by_pk.generated_images;
-
-            await increaseApiLimit(numTokens);
-
-            return NextResponse.json({ imageUrl });
-          }
-        }
-      }
-    }
+      return NextResponse.json(generationId, { status: 200 });
+    } else return new NextResponse("Error", { status: 500 });
   } catch (error) {
     return new NextResponse("Internal error", { status: 500 });
   }
